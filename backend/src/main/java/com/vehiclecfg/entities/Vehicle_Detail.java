@@ -15,9 +15,9 @@ public class Vehicle_Detail {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Confi_id;
 	
-//	@ManyToOne(fetch=FetchType.LAZY)
-//	@JoinColumn(name="model_id",nullable=false)
-//	private Model_Master model_master;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="modelId",nullable=false)
+	private Model model;
 //	
 //	
 //	@ManyToOne(fetch=FetchType.LAZY)
@@ -25,7 +25,7 @@ public class Vehicle_Detail {
 //	private Component_Master component_master;
 //	
 	
-	private int model_id;
+	private int modelId;
 	private int comp_id;
 	private String comp_type;
 	private boolean Is_configurable;
@@ -37,11 +37,21 @@ public class Vehicle_Detail {
 	public void setConfi_id(int confi_id) {
 		Confi_id = confi_id;
 	}
-	public int getModel_id() {
-		return model_id;
+	
+	
+	public Model getModel() {
+		return model;
 	}
-	public void setModel_id(int model_id) {
-		this.model_id = model_id;
+	public void setModel(Model model) {
+		this.model = model;
+	}
+	
+	
+	public int getModelId() {
+		return modelId;
+	}
+	public void setModelId(int modelId) {
+		this.modelId = modelId;
 	}
 	public int getComp_id() {
 		return comp_id;

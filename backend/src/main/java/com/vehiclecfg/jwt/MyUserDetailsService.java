@@ -1,32 +1,29 @@
 package com.vehiclecfg.jwt;
-
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
 import org.springframework.stereotype.Service;
 
+import com.vehiclecfg.entities.User;
+import com.vehiclecfg.repository.UserRepository;
 
 @Service
-public class MyUserDetailService implements UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService {
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository repo;
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    @Override
+    public UserDetails loadUserByUsername(String username)
+            throws UsernameNotFoundException {
 
-		User user = userRepository.findByUsername(username);
-		if (user == null) {
+        User user = repo.findByUsername(username);
 
-			throw new UsernameNotFoundException("not found");
-		}
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
 
-		return new UserPrincipal(user);
-	}
-
+        return new UserPrincipal(user);
+    }
 }

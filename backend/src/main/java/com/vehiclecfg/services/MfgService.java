@@ -2,8 +2,9 @@ package com.vehiclecfg.services;
 
 import java.util.List;
 
-import com.vehiclecfg.entities.MfgMaster;
+import org.springframework.stereotype.Service;
 
+import com.vehiclecfg.entities.MfgMaster;
 public interface MfgService {
 
     MfgMaster saveManufacturer(MfgMaster manufacturer);

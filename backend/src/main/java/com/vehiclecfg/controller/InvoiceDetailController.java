@@ -3,7 +3,6 @@ package com.vehiclecfg.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,16 +16,16 @@ import com.vehiclecfg.services.InvoiceDetailServices;
 @RequestMapping("/invoicedetail")
 public class InvoiceDetailController {
 
-	@Autowired
-	private InvoiceDetailServices service;
-	
-	@PostMapping()
-	public InvoiceDetail save(@RequestBody InvoiceDetail obj) {
-		return service.save(obj);
-	}
-	
-	@GetMapping
-	public List<InvoiceDetail> getAll(){
-		return service.getAll();
-	}
+    @Autowired
+    private InvoiceDetailServices service;
+
+    @PostMapping
+    public InvoiceDetail save(@RequestBody InvoiceDetail obj) {
+        return service.saveInvoiceDetail(obj);
+    }
+
+    @GetMapping
+    public List<InvoiceDetail> getAll() {
+        return service.getAllInvoiceDetails();
+    }
 }

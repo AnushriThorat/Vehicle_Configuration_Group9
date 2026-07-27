@@ -8,56 +8,50 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+
+enum Comp_Type {
+	C, S, I, E
+}
+
+enum Is_Configurable {
+	N, Y
+}
+
 @Entity
 public class Vehicle_Detail {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int Confi_id;
+	private int confi_id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="modelId",nullable=false)
+	@JoinColumn(name="model_id",nullable=false)
 	private Model model;
 //	
 //	
-//	@ManyToOne(fetch=FetchType.LAZY)
-//	@JoinColumn(name="comp_id",nullable=false)
-//	private Component_Master component_master;
-//	
-	
-	private int modelId;
-	private int comp_id;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="comp_id",nullable=false)
+	private Component component_master;
+
 	private String comp_type;
 	private boolean Is_configurable;
-	
-	
 	public int getConfi_id() {
-		return Confi_id;
+		return confi_id;
 	}
 	public void setConfi_id(int confi_id) {
-		Confi_id = confi_id;
+		this.confi_id = confi_id;
 	}
-	
-	
 	public Model getModel() {
 		return model;
 	}
 	public void setModel(Model model) {
 		this.model = model;
 	}
-	
-	
-	public int getModelId() {
-		return modelId;
+	public Component getComponent_master() {
+		return component_master;
 	}
-	public void setModelId(int modelId) {
-		this.modelId = modelId;
-	}
-	public int getComp_id() {
-		return comp_id;
-	}
-	public void setComp_id(int comp_id) {
-		this.comp_id = comp_id;
+	public void setComponent_master(Component component_master) {
+		this.component_master = component_master;
 	}
 	public String getComp_type() {
 		return comp_type;
@@ -72,4 +66,8 @@ public class Vehicle_Detail {
 		Is_configurable = is_configurable;
 	}
 	
+	
+	
+	
+
 }

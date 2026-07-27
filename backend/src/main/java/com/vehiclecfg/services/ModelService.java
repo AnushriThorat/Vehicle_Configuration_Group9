@@ -2,8 +2,9 @@ package com.vehiclecfg.services;
 
 import java.util.List;
 
-import com.vehiclecfg.entities.Model;
+import org.springframework.stereotype.Service;
 
+import com.vehiclecfg.entities.Model;
 
 
 public interface ModelService {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vehiclecfg.entities.Model;
 import com.vehiclecfg.services.ModelService;
+import com.vehiclecfg.services.impl.ModelServiceImpl;
 
 
 

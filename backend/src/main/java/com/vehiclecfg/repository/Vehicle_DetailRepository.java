@@ -17,7 +17,7 @@ public interface Vehicle_DetailRepository extends JpaRepository<Vehicle_Detail,I
 	 @Query("""
 	           SELECT vd
 	           FROM Vehicle_Detail vd
-	           WHERE vd.model_Master.model_d = :model_id
+	           WHERE vd.model.model_id = :model_id
 	           AND vd.Is_configurable = true
 	           """)
 	    List<Vehicle_Detail> findConfigurableComponentsByModel(

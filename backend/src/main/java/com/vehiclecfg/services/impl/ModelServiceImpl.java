@@ -3,13 +3,14 @@ package com.vehiclecfg.services.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.vehiclecfg.entities.Model;
 import com.vehiclecfg.repository.ModelRepository;
 import com.vehiclecfg.services.ModelService;
 
 
-
+@Service
 public class ModelServiceImpl implements ModelService {
 	
 	@Autowired

@@ -14,25 +14,26 @@ public class Segment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Seg_id")
-	private int segmentId;
+	private int seg_id;
 	
 	@Column(name = "Seg_name")
-	private String segmentName;
+	private String seg_name;
 	
 	@Column(name = "min_Qty")
 	private int minQty;
 	
-	public int getSegmentId() {
-		return segmentId;
+	
+	public int getSeg_id() {
+		return seg_id;
 	}
-	public void setSegmentId(int segmentId) {
-		this.segmentId = segmentId;
+	public void setSeg_id(int seg_id) {
+		this.seg_id = seg_id;
 	}
-	public String getSegmentName() {
-		return segmentName;
+	public String getSeg_name() {
+		return seg_name;
 	}
-	public void setSegmentName(String segmentName) {
-		this.segmentName = segmentName;
+	public void setSeg_name(String seg_name) {
+		this.seg_name = seg_name;
 	}
 	public int getMinQty() {
 		return minQty;

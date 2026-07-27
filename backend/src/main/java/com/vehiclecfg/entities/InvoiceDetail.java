@@ -1,10 +1,13 @@
 package com.vehiclecfg.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,9 +23,16 @@ public class InvoiceDetail {
 	private Integer inv_id;
 	
 	
-	@Column(name = "comp_id")
-	private Integer comp_id;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "comp_id", referencedColumnName = "comp_id")
+	private Component component;
+
 	
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "model_id", referencedColumnName = "model_id")
+	private Model model;
+
 	public InvoiceDetail() {
 		
 	}
@@ -39,16 +49,28 @@ public class InvoiceDetail {
 		this.inv_id = inv_id;
 	}
 
-	public Integer getComp_id() {
-		return comp_id;
+	public Component getComponent() {
+		return component;
 	}
 
-	public void setComp_id(Integer comp_id) {
-		this.comp_id = comp_id;
+	public void setComponent(Component component) {
+		this.component = component;
+	}
+
+	public Model getModel() {
+		return model;
+	}
+
+	public void setModel(Model model) {
+		this.model = model;
+	}
+
+	public void setInvdtl_id(Integer invdtl_id) {
+		this.invdtl_id = invdtl_id;
 	}
 
 	
 
-		
+	
 	
 }

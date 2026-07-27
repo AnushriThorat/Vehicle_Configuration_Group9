@@ -12,9 +12,9 @@ public class MfgMaster {
     @Column(name = "mfg_name")
     private String mfg_name;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "seg_id")
-    private  int seg_id;
+    private  Segment segment;
 
 
     public Integer getMfgId() {
@@ -33,14 +33,14 @@ public class MfgMaster {
         this.mfg_name = mfg_name;
     }
 
-	public int getSeg_id() {
-		return seg_id;
+	public Segment getSegment() {
+		return segment;
 	}
 
-	public void setSeg_id(int seg_id) {
-		this.seg_id = seg_id;
+	public void setSegment(Segment segment) {
+		this.segment = segment;
 	}
 
-    
+	
 	
 }

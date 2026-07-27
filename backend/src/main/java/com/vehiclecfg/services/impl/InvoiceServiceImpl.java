@@ -19,7 +19,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public Invoice saveInvoice(Invoice inv) {
         // Calculate tax = 12% of (vehicle amount + component amount)
-        double baseAmount = inv.getTotalAmt() + inv.getComponentAmt();
+        double baseAmount = inv.getTotalAmt() + inv.getTotalAmt();
         double tax = baseAmount * 0.12;
         inv.setTax(tax);
 

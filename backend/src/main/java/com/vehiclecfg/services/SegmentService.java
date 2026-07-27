@@ -2,8 +2,10 @@ package com.vehiclecfg.services;
 
 import java.util.List;
 
-import com.vehiclecfg.entities.Segment;
+import org.springframework.stereotype.Service;
 
+import com.vehiclecfg.entities.Segment;
+@Service
 public interface SegmentService {
 	
 	List<Segment> GetAll();

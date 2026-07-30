@@ -2,24 +2,23 @@ package com.vehiclecfg.services;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.vehiclecfg.entities.Model;
 
-
 public interface ModelService {
-	
-	Model addModel(Model model);
-	
-	List<Model> getAllModels();
-	
-	Model getModelById(Integer modelId);
-	
-	//List<Model> getModelsByManufacturer(Integer manufacturerId);
 
-    //List<Model> getVehiclesBySegment(Integer segmentId);
-    
-    // List<Vehicle> getVehiclesByManufacturerAndSegment(Integer segmentId,Integer manufacturerId);
-    
-	Model updateImage(Integer modelId, String imagePath);
+    // Add Model
+    Model addModel(Model model);
+
+    // Get All Models
+    List<Model> getAllModels();
+
+    // Get Model By Id
+    Model getModelById(Integer modelId);
+
+    // Get Models By Manufacturer
+    List<Model> getModelsByManufacturer(Integer manufacturerId);
+
+    // Update Model Image
+    Model updateImage(Integer modelId, String imagePath);
+
 }

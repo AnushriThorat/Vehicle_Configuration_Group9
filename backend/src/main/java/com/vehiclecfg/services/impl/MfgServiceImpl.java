@@ -31,6 +31,11 @@ public class MfgServiceImpl implements MfgService {
     }
 
     @Override
+    public List<MfgMaster> getManufacturersBySegment(Integer segmentId) {
+        return mfgRepository.findBySegmentSegId(segmentId);
+    }
+
+    @Override
     public MfgMaster updateManufacturer(MfgMaster manufacturer) {
         return mfgRepository.save(manufacturer);
     }

@@ -7,96 +7,103 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-	@Autowired
-	private UserDetailsService userDetailsService;
-	
-	@Autowired
-	private jwtFilter jwtFilter;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Autowired
+    private jwtFilter jwtFilter;
 
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-		http
-		 .cors(cors -> cors.configurationSource(request -> {
-	            CorsConfiguration config = new CorsConfiguration();
-	            config.setAllowedOrigins(List.of("http://www.vconfig.site" , "http://localhost:3000", "http://165.232.182.201:5000")); // ✅ Allow frontend origin
-	            config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // ✅ Allow HTTP methods
-	            config.setAllowedHeaders(List.of("*")); // ✅ Allow all headers
-	            config.setAllowCredentials(true); // ✅ Allow cookies/auth tokens
-	            return config;
-	        }))
-		.csrf(customizer -> customizer.disable()).authorizeHttpRequests(request -> request
-//		 		.requestMatchers("/public").permitAll()
-//		 			
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
 
-//				.requestMatchers("/about","/login","/signup").permitAll()
+        DaoAuthenticationProvider provider =
+                new DaoAuthenticationProvider(userDetailsService);
 
-				.requestMatchers("/about","/login","/signup").permitAll()
-				.anyRequest().permitAll())
-				.httpBasic(Customizer.withDefaults())
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-				
-				
-		return http.build();
-	}
+        provider.setPasswordEncoder(passwordEncoder());
 
-	@Bean
-	public AuthenticationProvider authenticationProvider() {
+        return provider;
+    }
 
-	    DaoAuthenticationProvider provider =
-	            new DaoAuthenticationProvider(userDetailsService);
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
 
-	    provider.setPasswordEncoder(passwordEncoder());
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-	    return provider;
-	}
-	
-//	@Bean
-//	public CorsConfigurationSource corsConfigurationSource() {
-//	    CorsConfiguration configuration = new CorsConfiguration();
-//	    configuration.setAllowedOrigins(List.of("http://www.vconfig.site")); // ✅ Allow your frontend
-//	    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-//	    configuration.setAllowedHeaders(List.of("*"));
-//	    configuration.setAllowCredentials(true); // ✅ If using cookies/sessions
-//
-//	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//	    source.registerCorsConfiguration("/*", configuration); // Apply to all endpoints
-//	    return source;
-//	}
+        http
 
-	
-	@Bean
-	public AuthenticationManager autenAuthenticationManager(AuthenticationConfiguration config) throws Exception
-	{
-		return config.getAuthenticationManager();
-	}
-	
+                .csrf(csrf -> csrf.disable())
+
+                .cors(cors -> cors.configurationSource(request -> {
+
+                    CorsConfiguration configuration = new CorsConfiguration();
+
+                    configuration.setAllowedOrigins(List.of(
+                            "http://localhost:5173",
+                            "http://localhost:3000",
+                            "http://www.vconfig.site",
+                            "http://165.232.182.201:5000"
+                    ));
+
+                    configuration.setAllowedMethods(List.of(
+                            "GET",
+                            "POST",
+                            "PUT",
+                            "DELETE",
+                            "OPTIONS"
+                    ));
+
+                    configuration.setAllowedHeaders(List.of("*"));
+                    configuration.setAllowCredentials(true);
+
+                    return configuration;
+
+                }))
+
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+                .authenticationProvider(authenticationProvider())
+
+                .authorizeHttpRequests(auth -> auth
+
+                        // Public APIs
+                        .requestMatchers(
+                                "/api/auth/login",
+                                "/api/auth/register",
+                                "/about"
+                        ).permitAll()
+
+                        // All remaining APIs require JWT
+                        .anyRequest().authenticated()
+                )
+
+                .addFilterBefore(jwtFilter,
+                        UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
 
 }

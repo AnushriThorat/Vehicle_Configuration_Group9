@@ -2,90 +2,85 @@ package com.vehiclecfg.entities;
 
 import java.math.BigDecimal;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Model Master")
+@Table(name = "Model_Master")
 public class Model {
-	
-	@Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer model_id;
-	
-	private String modelName;
-	
-	
-	 @ManyToOne(cascade=CascadeType.ALL)
-	 @JoinColumn(name="seg_id")
-	 private Segment segment;
-	 
-	 public Integer getModel_id() {
-		return model_id;
-	}
+    @Column(name = "model_id")
+    private Integer modelId;
 
-	 public void setModel_id(Integer model_id) {
-		 this.model_id = model_id;
-	 }
+    @Column(name = "model_name")
+    private String modelName;
 
-	
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "seg_id")
+    private Segment segment;
 
-	 public String getModelName() {
-		return modelName;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mfg_id")
+    private MfgMaster mfgmaster;
 
-	 public void setModelName(String modelName) {
-		 this.modelName = modelName;
-	 }
+    @Column(name = "base_price", precision = 12, scale = 2, nullable = false)
+    private BigDecimal basePrice;
 
-	 public Segment getSegment() {
-		return segment;
-	}
+    @Column(name = "image_path")
+    private String imagePath;
 
-	 public void setSegment(Segment segment) {
-		 this.segment = segment;
-	 }
+    // Default Constructor
+    public Model() {
+    }
 
-	 public MfgMaster getMfgmaster() {
-		 return mfgmaster;
-	 }
+    // Getters and Setters
 
-	 public void setMfgmaster(MfgMaster mfgmaster) {
-		 this.mfgmaster = mfgmaster;
-	 }
+    public Integer getModelId() {
+        return modelId;
+    }
 
-	 @ManyToOne(cascade=CascadeType.ALL)
-	 @JoinColumn(name="mfg_id")
-	 private MfgMaster mfgmaster;
-	
-	@Column(name = "base_price", precision = 12, scale = 2, nullable = false)
-	private BigDecimal basePrice;
-	
-	private String imagePath;
+    public void setModelId(Integer modelId) {
+        this.modelId = modelId;
+    }
 
+    public String getModelName() {
+        return modelName;
+    }
 
-	public BigDecimal getBasePrice() {
-		return basePrice;
-	}
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
 
-	public void setBasePrice(BigDecimal basePrice) {
-		this.basePrice = basePrice;
-	}
+    public Segment getSegment() {
+        return segment;
+    }
 
-	public String getImagePath() {
-		return imagePath;
-	}
+    public void setSegment(Segment segment) {
+        this.segment = segment;
+    }
 
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
-	}
-	
-	
+    public MfgMaster getMfgmaster() {
+        return mfgmaster;
+    }
+
+    public void setMfgmaster(MfgMaster mfgmaster) {
+        this.mfgmaster = mfgmaster;
+    }
+
+    public BigDecimal getBasePrice() {
+        return basePrice;
+    }
+
+    public void setBasePrice(BigDecimal basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 }

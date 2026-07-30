@@ -1,73 +1,78 @@
 package com.vehiclecfg.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
-
-enum Comp_Type {
-	C, S, I, E
-}
-
-enum Is_Configurable {
-	N, Y
+enum CompType {
+    C, S, I, E
 }
 
 @Entity
+@Table(name = "vehicle_detail")
 public class Vehicle_Detail {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int confi_id;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="model_id",nullable=false)
-	private Model model;
-//	
-//	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="comp_id",nullable=false)
-	private Component component_master;
 
-	private String comp_type;
-	private boolean Is_configurable;
-	public int getConfi_id() {
-		return confi_id;
-	}
-	public void setConfi_id(int confi_id) {
-		this.confi_id = confi_id;
-	}
-	public Model getModel() {
-		return model;
-	}
-	public void setModel(Model model) {
-		this.model = model;
-	}
-	public Component getComponent_master() {
-		return component_master;
-	}
-	public void setComponent_master(Component component_master) {
-		this.component_master = component_master;
-	}
-	public String getComp_type() {
-		return comp_type;
-	}
-	public void setComp_type(String comp_type) {
-		this.comp_type = comp_type;
-	}
-	public boolean isIs_configurable() {
-		return Is_configurable;
-	}
-	public void setIs_configurable(boolean is_configurable) {
-		Is_configurable = is_configurable;
-	}
-	
-	
-	
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "confi_id")
+    private Integer confiId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "model_id", nullable = false)
+    private Model model;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comp_id", nullable = false)
+    private Component componentMaster;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "comp_type")
+    private CompType compType;
+
+    @Column(name = "is_configurable")
+    private boolean configurable;
+
+    // Default Constructor
+    public Vehicle_Detail() {
+    }
+
+    // Getters and Setters
+
+    public Integer getConfiId() {
+        return confiId;
+    }
+
+    public void setConfiId(Integer confiId) {
+        this.confiId = confiId;
+    }
+
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
+
+    public Component getComponentMaster() {
+        return componentMaster;
+    }
+
+    public void setComponentMaster(Component componentMaster) {
+        this.componentMaster = componentMaster;
+    }
+
+    public CompType getCompType() {
+        return compType;
+    }
+
+    public void setCompType(CompType compType) {
+        this.compType = compType;
+    }
+
+    public boolean isConfigurable() {
+        return configurable;
+    }
+
+    public void setConfigurable(boolean configurable) {
+        this.configurable = configurable;
+    }
 }

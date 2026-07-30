@@ -5,37 +5,41 @@ import { toast } from "react-toastify";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FormField from "../components/FormField";
-
-import { validateRequired, isValidEmail } from "../utils/validate";
+import { validateRequired } from "../utils/validate";
 
 import "../styles/auth.css";
 
 
-const REQUIRED_FIELDS = ["email", "password"];
+const REQUIRED_FIELDS = [
+  "username",
+  "password"
+];
+
 
 const LABELS = {
-  email: "Email",
+  username: "Username",
   password: "Password"
 };
 
 
 export default function Login({ onLoginSuccess }) {
 
-
   const navigate = useNavigate();
-
   const location = useLocation();
 
-  const redirectTo = location.state?.from || "/";
+
+  const redirectTo = location.state?.from || "/configure-vehicle";
 
 
   const [values, setValues] = useState({
-    email: "",
+    username: "",
     password: ""
   });
 
 
   const [errors, setErrors] = useState({});
+
+  const [loading, setLoading] = useState(false);
 
 
 
@@ -59,35 +63,21 @@ export default function Login({ onLoginSuccess }) {
 
 
 
-
   const handleSubmit = async (e) => {
 
     e.preventDefault();
 
 
-    const requiredErrors =
-      validateRequired(values, REQUIRED_FIELDS, LABELS);
-
+    const requiredErrors = validateRequired(
+      values,
+      REQUIRED_FIELDS,
+      LABELS
+    );
 
 
     if (Object.keys(requiredErrors).length > 0) {
 
       setErrors(requiredErrors);
-
-      return;
-
-    }
-
-
-
-    if (!isValidEmail(values.email)) {
-
-      setErrors({
-        email: "Enter a valid email address"
-      });
-
-      toast.error("Enter a valid email address.");
-
       return;
 
     }
@@ -96,9 +86,11 @@ export default function Login({ onLoginSuccess }) {
 
     try {
 
+      setLoading(true);
+
 
       const response = await fetch(
-        "http://localhost:8080/auth/login",
+        "http://localhost:8080/api/auth/login",
         {
 
           method: "POST",
@@ -108,15 +100,13 @@ export default function Login({ onLoginSuccess }) {
           },
 
 
-         body: JSON.stringify({
+          body: JSON.stringify({
 
-    username: values.email,
+            username: values.username,
 
-    password: values.password
+            password: values.password
 
-})
-
-        
+          })
 
         }
       );
@@ -125,7 +115,13 @@ export default function Login({ onLoginSuccess }) {
 
       if (!response.ok) {
 
-        throw new Error("Invalid email or password");
+        const message = await response.text();
+
+        toast.error(
+          message || "Invalid Username or Password"
+        );
+
+        return;
 
       }
 
@@ -135,13 +131,23 @@ export default function Login({ onLoginSuccess }) {
 
 
 
-      // Store JWT Token
+      if (!data.token) {
 
+        toast.error(
+          "JWT token not received from server"
+        );
+
+        return;
+
+      }
+
+
+
+      // Store JWT
       localStorage.setItem(
-        "authToken",
+        "token",
         data.token
       );
-
 
 
       localStorage.setItem(
@@ -151,14 +157,22 @@ export default function Login({ onLoginSuccess }) {
 
 
 
-      toast.success("Logged in successfully.");
+      toast.success(
+        "Login Successful"
+      );
 
 
 
-      onLoginSuccess();
+      // Update authentication state
+      if (onLoginSuccess) {
+
+        onLoginSuccess();
+
+      }
 
 
 
+      // Navigate to vehicle configuration page
       navigate(
         redirectTo,
         {
@@ -168,16 +182,23 @@ export default function Login({ onLoginSuccess }) {
 
 
     }
-    catch(error) {
+    catch(error){
 
+      console.error(error);
 
-      toast.error(error.message);
+      toast.error(
+        "Unable to connect to server."
+      );
 
+    }
+    finally{
+
+      setLoading(false);
 
     }
 
-
   };
+
 
 
 
@@ -186,7 +207,12 @@ export default function Login({ onLoginSuccess }) {
     <div className="page-shell">
 
 
-      <Header isAuthenticated={false} />
+      <Header
+        isAuthenticated={
+          !!localStorage.getItem("token")
+        }
+      />
+
 
 
       <main className="auth-page">
@@ -196,8 +222,9 @@ export default function Login({ onLoginSuccess }) {
 
 
           <div className="auth-eyebrow">
-            Welcome back
+            Welcome Back
           </div>
+
 
 
           <h1 className="auth-title">
@@ -205,9 +232,11 @@ export default function Login({ onLoginSuccess }) {
           </h1>
 
 
+
           <p className="auth-subtitle">
-            Enter your credentials to manage your dealership listings.
+            Enter your credentials to manage your dealership.
           </p>
+
 
 
 
@@ -218,23 +247,26 @@ export default function Login({ onLoginSuccess }) {
           >
 
 
+
             <FormField
 
-              label="Email"
+              label="Username"
 
-              name="email"
+              name="username"
 
-              type="email"
+              type="text"
 
-              value={values.email}
+              value={values.username}
 
               onChange={handleChange}
 
-              error={errors.email}
+              error={errors.username}
 
-              placeholder="you@company.com"
+              placeholder="Enter Username"
 
             />
+
+
 
 
 
@@ -258,12 +290,24 @@ export default function Login({ onLoginSuccess }) {
 
 
 
+
+
+
             <button
+
               type="submit"
+
               className="auth-submit"
+
+              disabled={loading}
+
             >
 
-              Log in
+              {
+                loading
+                ? "Logging In..."
+                : "Log In"
+              }
 
             </button>
 
@@ -273,11 +317,11 @@ export default function Login({ onLoginSuccess }) {
 
 
 
+
+
           <p className="auth-footnote">
 
-            Don&apos;t have a company account?
-
-            {" "}
+            Don't have a company account?{" "}
 
             <Link to="/register">
               Register here

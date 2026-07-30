@@ -8,6 +8,8 @@ import com.vehiclecfg.dto.LoginRequest;
 import com.vehiclecfg.dto.LoginResponse;
 import com.vehiclecfg.dto.RegisterRequest;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 
 @RestController
 @RequestMapping("/api/auth")
@@ -39,5 +41,14 @@ public class AuthController {
         LoginResponse response = authService.login(request);
 
         return ResponseEntity.ok(response);
+    }
+    
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+
+        // If using stateless JWT, nothing needs to be done on the server.
+        // The frontend should remove the JWT from localStorage/sessionStorage.
+
+        return ResponseEntity.ok("Logged out successfully");
     }
 }

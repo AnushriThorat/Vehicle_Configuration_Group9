@@ -13,14 +13,12 @@ import com.vehiclecfg.entities.Vehicle_Detail;
 @Repository
 public interface Vehicle_DetailRepository extends JpaRepository<Vehicle_Detail,Integer>
 {
-	
-	 @Query("""
-	           SELECT vd
-	           FROM Vehicle_Detail vd
-	           WHERE vd.model_Master.model_d = :model_id
-	           AND vd.Is_configurable = true
-	           """)
-	    List<Vehicle_Detail> findConfigurableComponentsByModel(
-	            @Param("model_id") Integer model_id);
+	@Query("""
+	        SELECT vd
+	        FROM Vehicle_Detail vd
+	        WHERE vd.model.modelId = :modelId
+	        AND vd.configurable = true
+	        """)
+	List<Vehicle_Detail> findConfigurableComponentsByModel(@Param("modelId") Integer modelId);
 
 }

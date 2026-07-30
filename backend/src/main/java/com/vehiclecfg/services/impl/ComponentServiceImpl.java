@@ -37,8 +37,8 @@ public class ComponentServiceImpl implements ComponentService {
 
         if (existing != null) {
 
-            existing.setCompName(component.getCompName());
-            existing.setCompType(component.getCompType());
+            existing.setComp_name(component.getComp_name());
+            existing.setComp_name(component.getComp_name());
 
             return repository.save(existing);
         }

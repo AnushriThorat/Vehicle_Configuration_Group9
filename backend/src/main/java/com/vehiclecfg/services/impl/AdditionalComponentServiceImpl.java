@@ -37,8 +37,8 @@ public class AdditionalComponentServiceImpl implements AdditionalComponentServic
 
         if (existing != null) {
 
-            existing.setModelId(component.getModelId());
-            existing.setCompId(component.getCompId());
+            existing.setModel(component.getModel());
+            existing.setComponent(component.getComponent());
             existing.setAltCompId(component.getAltCompId());
             existing.setDeltaPrice(component.getDeltaPrice());
 

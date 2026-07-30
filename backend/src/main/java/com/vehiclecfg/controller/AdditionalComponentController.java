@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.vehiclecfg.entities.AdditionalComponent;
 import com.vehiclecfg.services.AdditionalComponentService;
+import com.vehiclecfg.services.impl.AdditionalComponentServiceImpl;
 
 @RestController
 @RequestMapping("/additional-component")

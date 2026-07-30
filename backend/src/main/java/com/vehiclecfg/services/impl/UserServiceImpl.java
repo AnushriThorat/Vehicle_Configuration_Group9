@@ -1,8 +1,9 @@
 package com.vehiclecfg.services.impl;
 
-import java.util.List; 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.vehiclecfg.entities.User;
@@ -15,8 +16,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
     @Override
     public User save(User user) {
+        user.setPassword(encoder.encode(user.getPassword()));
         return repository.save(user);
     }
 
@@ -40,7 +45,10 @@ public class UserServiceImpl implements UserService {
         }
 
         existing.setUsername(user.getUsername());
-        existing.setPassword(user.getPassword());
+
+        // Encrypt password before saving
+        existing.setPassword(encoder.encode(user.getPassword()));
+
         existing.setCompanyName(user.getCompanyName());
         existing.setCompanyEmail(user.getCompanyEmail());
         existing.setRegistrationNo(user.getRegistrationNo());
@@ -70,6 +78,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getByUsername(String username) {
-        return repository.findByUsername(username).orElse(null);
+        return repository.findByUsername(username);
+    }
+
+    // Used during login
+    public boolean validateUser(String username, String password) {
+
+        User user = repository.findByUsername(username);
+
+        if (user == null) {
+            return false;
+        }
+
+        return encoder.matches(password, user.getPassword());
     }
 }

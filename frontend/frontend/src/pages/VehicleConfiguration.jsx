@@ -6,6 +6,8 @@ import "./VehicleConfiguration.css";
 import { getAllSegments } from "../services/segmentService";
 import { getManufacturersBySegment } from "../services/manufacturerService";
 import { getModelsByManufacturer } from "../services/modelService";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const VehicleConfiguration = () => {
   const navigate = useNavigate();
@@ -152,25 +154,45 @@ const VehicleConfiguration = () => {
   };
 
   return (
-    <div className="vehicle-config-page">
+  <div className="page-shell">
+
+    <Header isAuthenticated={true} />
+
+    <main className="vehicle-config-page">
       <div className="vehicle-config-card">
+
         <div className="vehicle-config-header">
           <h2>Vehicle Configuration</h2>
           <p>Select Segment, Manufacturer and Model</p>
         </div>
 
         <div className="vehicle-config-form">
-          {loading && <div className="message">Loading...</div>}
 
-          {error && <div className="message">{error}</div>}
+          {loading && (
+            <div className="message">
+              Loading...
+            </div>
+          )}
+
+          {error && (
+            <div className="message">
+              {error}
+            </div>
+          )}
 
           <label>Select Segment</label>
 
-          <select value={selectedSegment} onChange={handleSegmentChange}>
+          <select
+            value={selectedSegment}
+            onChange={handleSegmentChange}
+          >
             <option value="">-- Select Segment --</option>
 
             {segments.map((segment) => (
-              <option key={segment.segId} value={segment.segId}>
+              <option
+                key={segment.segId}
+                value={segment.segId}
+              >
                 {segment.segName}
               </option>
             ))}
@@ -181,11 +203,15 @@ const VehicleConfiguration = () => {
           <select
             value={selectedManufacturer}
             onChange={handleManufacturerChange}
+            disabled={!selectedSegment}
           >
             <option value="">-- Select Manufacturer --</option>
 
             {manufacturers.map((manufacturer) => (
-              <option key={manufacturer.mfgId} value={manufacturer.mfgId}>
+              <option
+                key={manufacturer.mfgId}
+                value={manufacturer.mfgId}
+              >
                 {manufacturer.mfgName}
               </option>
             ))}
@@ -201,7 +227,10 @@ const VehicleConfiguration = () => {
             <option value="">-- Select Model --</option>
 
             {models.map((model) => (
-              <option key={model.modelId} value={model.modelId}>
+              <option
+                key={model.modelId}
+                value={model.modelId}
+              >
                 {model.modelName}
               </option>
             ))}
@@ -215,15 +244,17 @@ const VehicleConfiguration = () => {
               min={minimumQuantity}
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
-              placeholder={`Minimum Quantity : ${minimumQuantity}`}
+              placeholder={`Minimum Quantity: ${minimumQuantity}`}
             />
 
-            {quantity && Number(quantity) < minimumQuantity && (
-              <p className="error">
-                Minimum quantity for this segment is {minimumQuantity}.
-              </p>
-            )}
+            {quantity &&
+              Number(quantity) < minimumQuantity && (
+                <p className="error">
+                  Minimum quantity for this segment is {minimumQuantity}.
+                </p>
+              )}
           </div>
+
           <button
             onClick={handleContinue}
             disabled={
@@ -236,10 +267,16 @@ const VehicleConfiguration = () => {
           >
             Continue
           </button>
+
         </div>
+
       </div>
-    </div>
-  );
+    </main>
+
+    <Footer />
+
+  </div>
+);
 };
 
 export default VehicleConfiguration;

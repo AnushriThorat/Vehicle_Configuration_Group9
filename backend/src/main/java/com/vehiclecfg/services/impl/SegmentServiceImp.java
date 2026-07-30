@@ -29,7 +29,7 @@ public class SegmentServiceImp implements SegmentService{
 		
 		if(existingSeg != null) {
 			
-			existingSeg.setSeg_name(updateSeg.getSeg_name());
+			existingSeg.setSegName(updateSeg.getSegName());
 			existingSeg.setMinQty(updateSeg.getMinQty());
 			
 			return repository.save(existingSeg);

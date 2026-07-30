@@ -5,10 +5,12 @@ export default function Header({ isAuthenticated }) {
 
   const navigate = useNavigate();
 
+  const username = sessionStorage.getItem("username");
+
   const handleLogout = () => {
 
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("username");
 
     navigate("/login", { replace: true });
 
@@ -26,9 +28,21 @@ export default function Header({ isAuthenticated }) {
         </Link>
 
         <nav className="main-nav">
-          <Link to="/register">Registration</Link>
-          <a href="#fleet">Our Fleet</a>
-          <a href="#contact">Contact Us</a>
+
+          {!isAuthenticated && (
+            <Link to="/register">
+              Registration
+            </Link>
+          )}
+
+          <a href="#fleet">
+            Our Fleet
+          </a>
+
+          <a href="#contact">
+            Contact Us
+          </a>
+
         </nav>
 
         <div className="header-actions">
@@ -36,7 +50,7 @@ export default function Header({ isAuthenticated }) {
           {isAuthenticated ? (
             <>
               <span className="status-pill">
-                Signed In
+                Welcome, {username}
               </span>
 
               <button

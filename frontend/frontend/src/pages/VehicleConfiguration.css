@@ -1,0 +1,122 @@
+/* Page Background */
+.vehicle-config-page {
+    min-height: 100vh;
+    background: #f4f7fb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+/* Main Card */
+.vehicle-config-card {
+    width: 100%;
+    max-width: 520px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Header */
+.vehicle-config-header {
+    background: #0d6efd;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.vehicle-config-header h2 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.vehicle-config-header p {
+    margin-top: 8px;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Form */
+.vehicle-config-form {
+    padding: 30px;
+}
+
+.vehicle-config-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.vehicle-config-form select,
+.vehicle-config-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.3s;
+    box-sizing: border-box;
+}
+
+.vehicle-config-form select:focus,
+.vehicle-config-form input:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 5px rgba(13, 110, 253, 0.3);
+}
+
+/* Readonly Field */
+.vehicle-config-form input[readonly] {
+    background: #e9ecef;
+    cursor: not-allowed;
+}
+
+/* Button */
+.continue-btn {
+    width: 100%;
+    background: #0d6efd;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.continue-btn:hover {
+    background: #0b5ed7;
+}
+
+/* Disabled Button */
+.continue-btn:disabled {
+    background: #9dbcf9;
+    cursor: not-allowed;
+}
+
+/* Loading / Error */
+.message {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #dc3545;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .vehicle-config-card {
+        width: 95%;
+    }
+
+    .vehicle-config-header h2 {
+        font-size: 24px;
+    }
+
+    .vehicle-config-form {
+        padding: 20px;
+    }
+}

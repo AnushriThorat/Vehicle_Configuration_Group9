@@ -77,7 +77,9 @@ export default function Login({ onLoginSuccess }) {
 
       if (!response.ok) {
         const message = await response.text();
+
         toast.error(message || "Invalid Username or Password");
+
         return;
       }
 
@@ -90,6 +92,7 @@ export default function Login({ onLoginSuccess }) {
 
       sessionStorage.setItem("token", data.token);
       sessionStorage.setItem("username", data.username);
+      sessionStorage.setItem("userId", data.id);
 
       toast.success("Login Successful");
 
@@ -99,7 +102,9 @@ export default function Login({ onLoginSuccess }) {
 
       navigate(redirectTo, { replace: true });
 
+      // Refresh App so authentication state is updated
       window.location.reload();
+
     } catch (error) {
       console.error(error);
       toast.error("Unable to connect to server.");
@@ -110,14 +115,11 @@ export default function Login({ onLoginSuccess }) {
 
   return (
     <div className="page-shell">
-      <Header
-        isAuthenticated={
-          !!sessionStorage.getItem("token")
-        }
-      />
+      <Header isAuthenticated={false} />
 
       <main className="auth-page">
         <div className="auth-card">
+
           <div className="auth-eyebrow">
             Welcome Back
           </div>
@@ -135,6 +137,7 @@ export default function Login({ onLoginSuccess }) {
             onSubmit={handleSubmit}
             noValidate
           >
+
             <FormField
               label="Username"
               name="username"
@@ -162,6 +165,7 @@ export default function Login({ onLoginSuccess }) {
             >
               {loading ? "Logging In..." : "Log In"}
             </button>
+
           </form>
 
           <p className="auth-footnote">
@@ -172,7 +176,6 @@ export default function Login({ onLoginSuccess }) {
           </p>
         </div>
       </main>
-
       <Footer />
     </div>
   );

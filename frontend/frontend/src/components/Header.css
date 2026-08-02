@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.90);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
@@ -11,47 +11,67 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 76px;
+  height: 90px;
   gap: 24px;
 }
+
+/* ---------- Brand ---------- */
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 20px;
-  letter-spacing: -0.02em;
+  gap: 15px;
+  text-decoration: none;
 }
 
-.brand-mark {
-  width: 36px;
-  height: 36px;
+.brand-logo {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
   border-radius: 10px;
-  background: var(--accent-blue);
-  color: var(--white);
-  display: grid;
-  place-items: center;
-  font-size: 14px;
-  font-weight: 700;
 }
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.brand-name {
+  font-size: 30px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1;
+  letter-spacing: 0.5px;
+}
+
+.brand-subtitle {
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* ---------- Navigation ---------- */
 
 .main-nav {
   display: flex;
   gap: 32px;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .main-nav a {
-  color: var(--muted);
-  transition: color 0.15s ease;
+  color: #475569;
+  text-decoration: none;
+  transition: color 0.2s;
 }
 
 .main-nav a:hover {
-  color: var(--ink);
+  color: #2563eb;
 }
+
+/* ---------- Right Side ---------- */
 
 .header-actions {
   display: flex;
@@ -60,30 +80,48 @@
 }
 
 .status-pill {
-  font-size: 12px;
-  padding: 6px 12px;
+  font-size: 13px;
+  padding: 7px 14px;
   border-radius: 999px;
-  background: rgba(47, 111, 237, 0.12);
-  color: var(--accent-blue);
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
   font-weight: 600;
 }
 
 .header-login {
   font-size: 14px;
   font-weight: 600;
-  padding: 9px 18px;
+  padding: 10px 20px;
   border-radius: 999px;
-  border: 1px solid var(--line);
-  transition: border-color 0.15s ease, background 0.15s ease;
+  border: 1px solid #d1d5db;
+  background: white;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 .header-login:hover {
-  border-color: var(--accent-blue);
-  background: rgba(47, 111, 237, 0.08);
+  border-color: #2563eb;
+  background: rgba(37, 99, 235, 0.08);
 }
 
-@media (max-width: 780px) {
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+
   .main-nav {
     display: none;
+  }
+
+  .brand-logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .brand-name {
+    font-size: 22px;
+  }
+
+  .brand-subtitle {
+    font-size: 12px;
   }
 }

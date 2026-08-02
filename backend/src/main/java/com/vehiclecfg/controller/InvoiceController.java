@@ -1,41 +1,53 @@
 package com.vehiclecfg.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.vehiclecfg.entities.Invoice;
 import com.vehiclecfg.services.InvoiceService;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/invoices")
+@CrossOrigin(origins = "http://localhost:5173")
 public class InvoiceController {
 
     @Autowired
     private InvoiceService service;
 
-    // Create new invoice
     @PostMapping
-    public Invoice createInvoice(@RequestBody Invoice inv) {
-        return service.saveInvoice(inv);
+    public Invoice save(@RequestBody Invoice invoice) {
+        return service.saveInvoice(invoice);
     }
 
-    // Get all invoices
     @GetMapping
-    public List<Invoice> getInvoices() {
+    public List<Invoice> getAll() {
         return service.getAllInvoices();
     }
 
-    // Get invoice by ID
     @GetMapping("/{id}")
-    public Invoice getInvoice(@PathVariable Long id) {
+    public Invoice getById(@PathVariable Long id) {
         return service.getInvoiceById(id);
     }
 
-    // Delete invoice
-    @DeleteMapping("/{id}")
-    public void deleteInvoice(@PathVariable Long id) {
-        service.deleteInvoice(id);
+    @GetMapping("/user/{userId}")
+    public List<Invoice> getByUser(@PathVariable Integer userId) {
+        return service.getInvoicesByUser(userId);
     }
+
+    @PutMapping("/{id}")
+    public Invoice update(@PathVariable Long id,
+                          @RequestBody Invoice invoice) {
+        return service.updateInvoice(id, invoice);
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id) {
+
+        service.deleteInvoice(id);
+
+        return "Invoice Deleted Successfully";
+    }
+
 }

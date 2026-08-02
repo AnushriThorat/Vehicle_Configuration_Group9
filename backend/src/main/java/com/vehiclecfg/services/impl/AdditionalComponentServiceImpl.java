@@ -1,6 +1,6 @@
 package com.vehiclecfg.services.impl;
 
-import java.util.List; 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +39,7 @@ public class AdditionalComponentServiceImpl implements AdditionalComponentServic
 
             existing.setModel(component.getModel());
             existing.setComponent(component.getComponent());
-            existing.setAltCompId(component.getAltCompId());
+            existing.setAlternateComponent(component.getAlternateComponent());
             existing.setDeltaPrice(component.getDeltaPrice());
 
             return repository.save(existing);
@@ -51,5 +51,10 @@ public class AdditionalComponentServiceImpl implements AdditionalComponentServic
     @Override
     public void delete(Integer id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public List<AdditionalComponent> getByModel(Integer modelId) {
+        return repository.findByModelModelId(modelId);
     }
 }

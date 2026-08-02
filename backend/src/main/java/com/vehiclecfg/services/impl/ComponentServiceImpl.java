@@ -1,6 +1,6 @@
 package com.vehiclecfg.services.impl;
 
-import java.util.List; 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +17,11 @@ public class ComponentServiceImpl implements ComponentService {
 
     @Override
     public Component save(Component component) {
+
+        if (repository.existsByCompName(component.getCompName())) {
+            throw new RuntimeException("Component already exists.");
+        }
+
         return repository.save(component);
     }
 
@@ -27,27 +32,28 @@ public class ComponentServiceImpl implements ComponentService {
 
     @Override
     public Component getById(Integer id) {
-        return repository.findById(id).orElse(null);
+
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Component not found with Id : " + id));
     }
 
     @Override
     public Component update(Integer id, Component component) {
 
-        Component existing = repository.findById(id).orElse(null);
+        Component existing = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Component not found with Id : " + id));
 
-        if (existing != null) {
+        existing.setCompName(component.getCompName());
 
-            existing.setComp_name(component.getComp_name());
-            existing.setComp_name(component.getComp_name());
-
-            return repository.save(existing);
-        }
-
-        return null;
+        return repository.save(existing);
     }
 
     @Override
     public void delete(Integer id) {
-        repository.deleteById(id);
+
+        Component existing = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Component not found with Id : " + id));
+
+        repository.delete(existing);
     }
 }

@@ -2,8 +2,7 @@ package com.vehiclecfg.services;
 
 import java.util.List;
 
-import com.vehiclecfg.entities.AdditionalComponent; 
-
+import com.vehiclecfg.entities.AdditionalComponent;
 
 public interface AdditionalComponentService {
 
@@ -16,5 +15,7 @@ public interface AdditionalComponentService {
     AdditionalComponent update(Integer id, AdditionalComponent component);
 
     void delete(Integer id);
+
+    List<AdditionalComponent> getByModel(Integer modelId);
 
 }

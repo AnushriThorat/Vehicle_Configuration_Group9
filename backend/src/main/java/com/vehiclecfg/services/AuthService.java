@@ -77,19 +77,38 @@ public class AuthService {
         return "Registration Successful";
     }
 
-    // Login User
     public LoginResponse login(LoginRequest request) {
 
         authenticationManager.authenticate(
+
                 new UsernamePasswordAuthenticationToken(
+
                         request.getUsername(),
+
                         request.getPassword()
+
                 )
+
         );
 
-        String token = jwtService.generateToken(request.getUsername());
+        User user = userRepository.findByUsername(request.getUsername());
 
-        return new LoginResponse(token, request.getUsername());
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+
+        String token = jwtService.generateToken(user.getUsername());
+
+        return new LoginResponse(
+
+                user.getId(),
+
+                user.getUsername(),
+
+                token
+
+        );
+
     }
 
 }

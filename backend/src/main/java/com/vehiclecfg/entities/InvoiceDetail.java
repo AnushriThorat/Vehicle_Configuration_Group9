@@ -1,76 +1,84 @@
 package com.vehiclecfg.entities;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name="invoice_detail")
+@Table(name = "invoice_detail")
 public class InvoiceDetail {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer invdtl_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "invdtl_id")
+    private Integer invdtlId;
 
-	
-	@Column(name = "inv_id")
-	private Integer inv_id;
-	
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "comp_id", referencedColumnName = "comp_id")
-	private Component component;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "inv_id", nullable = false)
+    private Invoice invoice;
 
-	
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "model_id", referencedColumnName = "model_id")
-	private Model model;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comp_id", nullable = false)
+    private Component component;
 
-	public InvoiceDetail() {
-		
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "alt_comp_id", nullable = false)
+    private Component alternateComponent;
 
-	public Integer getInvdtl_id() {
-		return invdtl_id;
-	}
+    @Column(name = "delta_price")
+    private Double deltaPrice;
 
-	public Integer getInv_id() {
-		return inv_id;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "model_id", nullable = false)
+    private Model model;
 
-	public void setInv_id(Integer inv_id) {
-		this.inv_id = inv_id;
-	}
+    public InvoiceDetail() {
+    }
 
-	public Component getComponent() {
-		return component;
-	}
+    public Integer getInvdtlId() {
+        return invdtlId;
+    }
 
-	public void setComponent(Component component) {
-		this.component = component;
-	}
+    public void setInvdtlId(Integer invdtlId) {
+        this.invdtlId = invdtlId;
+    }
 
-	public Model getModel() {
-		return model;
-	}
+    public Invoice getInvoice() {
+        return invoice;
+    }
 
-	public void setModel(Model model) {
-		this.model = model;
-	}
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
+    }
 
-	public void setInvdtl_id(Integer invdtl_id) {
-		this.invdtl_id = invdtl_id;
-	}
+    public Component getComponent() {
+        return component;
+    }
 
-	
+    public void setComponent(Component component) {
+        this.component = component;
+    }
 
-	
-	
+    public Component getAlternateComponent() {
+        return alternateComponent;
+    }
+
+    public void setAlternateComponent(Component alternateComponent) {
+        this.alternateComponent = alternateComponent;
+    }
+
+    public Double getDeltaPrice() {
+        return deltaPrice;
+    }
+
+    public void setDeltaPrice(Double deltaPrice) {
+        this.deltaPrice = deltaPrice;
+    }
+
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
+
 }

@@ -16,14 +16,14 @@ public class Model {
     @Column(name = "model_name")
     private String modelName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "seg_id")
     private Segment segment;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "mfg_id")
     private MfgMaster mfgmaster;
-
+    
     @Column(name = "base_price", precision = 12, scale = 2, nullable = false)
     private BigDecimal basePrice;
 

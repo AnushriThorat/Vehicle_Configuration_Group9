@@ -7,6 +7,8 @@ import Login from "./pages/Login";
 import Registration from "./pages/Registration";
 import VehicleConfiguration from "./pages/VehicleConfiguration";
 import VehicleDetails from "./pages/VehicleDetails";
+import Configure from "./pages/configure";
+import Invoice from "./pages/invoice";
 
 export default function App() {
 
@@ -16,7 +18,7 @@ export default function App() {
     <>
       <Routes>
 
-        {/* Landing Page */}
+        {/* Landing */}
         <Route
           path="/"
           element={
@@ -73,15 +75,51 @@ export default function App() {
             )
           }
         />
+
         {/* Vehicle Details */}
         <Route
-    path="/vehicle-details"
-    element={
-        isAuthenticated
-            ? <VehicleDetails />
-            : <Navigate to="/login" replace />
-    }
-/>
+          path="/vehicle-details"
+          element={
+            isAuthenticated ? (
+              <VehicleDetails />
+            ) : (
+              <Navigate
+                to="/login"
+                replace
+              />
+            )
+          }
+        />
+
+        {/* Configure */}
+        <Route
+          path="/configure"
+          element={
+            isAuthenticated ? (
+              <Configure />
+            ) : (
+              <Navigate
+                to="/login"
+                replace
+              />
+            )
+          }
+        />
+
+        {/* Invoice */}
+        <Route
+          path="/invoice"
+          element={
+            isAuthenticated ? (
+              <Invoice />
+            ) : (
+              <Navigate
+                to="/login"
+                replace
+              />
+            )
+          }
+        />
 
         {/* Invalid URL */}
         <Route

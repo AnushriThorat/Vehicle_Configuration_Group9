@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.vehiclecfg.entities.MfgMaster;
 import com.vehiclecfg.entities.Model;
 
 public interface ModelRepository extends JpaRepository<Model, Integer> {

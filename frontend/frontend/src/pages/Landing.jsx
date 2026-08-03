@@ -1,5 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+
+import { FaCarSide } from "react-icons/fa";
+import { HiBuildingOffice2 } from "react-icons/hi2";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -8,126 +12,112 @@ import "./Landing.css";
 
 export default function Landing({ isAuthenticated }) {
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const handleConfigureClick = () => {
+    const { t } = useTranslation();
 
-    if (!isAuthenticated) {
+    const handleConfigureClick = () => {
 
-      toast.info("Please log in to configure a vehicle.");
+        if (!isAuthenticated) {
 
-      navigate("/login", {
-        state: {
-          from: "/configure-vehicle"
+            toast.info(t("pleaseLogin"));
+
+            navigate("/login", {
+                state: {
+                    from: "/configure-vehicle"
+                }
+            });
+
+            return;
         }
-      });
 
-      return;
-    }
+        navigate("/configure-vehicle");
 
-    navigate("/configure-vehicle");
-  };
+    };
 
-  const handleRegisterClick = () => {
+    const handleRegisterClick = () => {
 
-    navigate("/register");
+        navigate("/register");
 
-  };
+    };
 
-  return (
+    return (
 
-    <div className="page-shell">
+        <div className="landing-page">
 
-      <Header isAuthenticated={isAuthenticated} />
+            <Header isAuthenticated={isAuthenticated} />
 
-      <main className="hero">
+            <main>
 
-        <div
-          className="hero-cut"
-          aria-hidden="true"
-        />
+                <section className="hero-section">
 
-        <div className="container hero-content">
+                    <div className="hero-overlay"></div>
 
-          <h1 className="hero-title">
+                    <div className="hero-content">
 
-            Rent Smarter
+                        <h1 className="hero-title">
 
-            <span className="accent">
-              {" "}Backed by Finance
-            </span>
+                            Enterprise-Ready
 
-            <span className="hero-sub">
-              Flexible car rentals, financed and managed for you
-            </span>
+                            <br />
 
-          </h1>
+                            <span>
 
-          <p className="hero-copy">
+                                Vehicle Configuration
 
-            AutoDeal is a finance-backed car rental platform.
+                            </span>
 
-            Onboard your company and configure vehicles from our fleet for rental,
+                            <br />
 
-            with financing built into every plan.
+                            Platform
 
-          </p>
+                        </h1>
+                        <div className="hero-buttons">
 
-          <section
-            className="action-panel"
-            aria-label="Get Started"
-          >
+                            <button
+                                type="button"
+                                className="configure-btn"
+                                onClick={handleConfigureClick}
+                            >
 
-            <button
-              className="action-card action-card--primary"
-              onClick={handleConfigureClick}
-            >
+                                <FaCarSide />
 
-              <span className="action-eyebrow">
-                For Fleet Managers
-              </span>
+                                <span>
 
-              <span className="action-title">
-                Configure Vehicle
-              </span>
+                                    {t("configureVehicle")}
 
-              <span className="action-desc">
-                Set up a rental vehicle by segment,
-                manufacturer and model.
-              </span>
+                                </span>
 
-            </button>
+                            </button>
 
-            <button
-              className="action-card action-card--secondary"
-              onClick={handleRegisterClick}
-            >
+                            <button
+                                type="button"
+                                className="register-btn"
+                                onClick={handleRegisterClick}
+                            >
 
-              <span className="action-eyebrow">
-                New Here?
-              </span>
+                                <HiBuildingOffice2 />
 
-              <span className="action-title">
-                Company Registration
-              </span>
+                                <span>
 
-              <span className="action-desc">
-                Register your company to start renting
-                vehicles from our fleet.
-              </span>
+                                    {t("companyRegistration")}
 
-            </button>
+                                </span>
 
-          </section>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </main>
+
+            <Footer />
 
         </div>
 
-      </main>
-
-      <Footer />
-
-    </div>
-
-  );
+    );
 
 }

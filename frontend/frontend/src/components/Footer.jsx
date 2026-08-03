@@ -1,4 +1,5 @@
 import "./Footer.css";
+import LanguageSwitcher from "../components/LanguageSwitcher";
 
 export default function Footer() {
   return (
@@ -9,6 +10,7 @@ export default function Footer() {
           <a href="#privacy">Privacy</a>
           <a href="#terms">Terms</a>
           <a href="#support">Support</a>
+           <LanguageSwitcher />
         </div>
       </div>
     </footer>

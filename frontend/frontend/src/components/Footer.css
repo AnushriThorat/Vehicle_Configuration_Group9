@@ -33,3 +33,45 @@
     gap: 12px;
   }
 }
+
+.footer-content {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+}
+
+.language-switcher {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+.language-icon {
+
+    font-size: 22px;
+
+}
+
+.language-switcher select {
+
+    padding: 6px 10px;
+
+    border-radius: 8px;
+
+    border: 1px solid #ccc;
+
+    cursor: pointer;
+
+    background: white;
+
+}

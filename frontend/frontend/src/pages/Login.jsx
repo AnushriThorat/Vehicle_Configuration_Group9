@@ -113,6 +113,13 @@ export default function Login({ onLoginSuccess }) {
     }
   };
 
+  const handleGoogleLogin = () => {
+
+    window.location.href =
+        "http://localhost:8080/oauth2/authorization/google";
+
+};
+
   return (
     <div className="page-shell">
       <Header isAuthenticated={false} />
@@ -165,6 +172,36 @@ export default function Login({ onLoginSuccess }) {
             >
               {loading ? "Logging In..." : "Log In"}
             </button>
+
+            <div className="google-login-container">
+
+    <div className="divider">
+
+        <span>OR</span>
+
+    </div>
+
+    <button
+
+        className="google-login-btn"
+
+        onClick={handleGoogleLogin}
+
+    >
+
+        <img
+
+            src="https://developers.google.com/identity/images/g-logo.png"
+
+            alt="Google"
+
+        />
+
+        Continue with Google
+
+    </button>
+
+</div>
 
           </form>
 

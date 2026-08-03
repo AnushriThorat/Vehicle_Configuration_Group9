@@ -3,6 +3,8 @@ package com.vehiclecfg.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.vehiclecfg.entities.Invoice;
@@ -10,44 +12,88 @@ import com.vehiclecfg.services.InvoiceService;
 
 @RestController
 @RequestMapping("/api/invoices")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {
+        "http://localhost:5173",
+        "http://localhost:3000"
+})
 public class InvoiceController {
 
     @Autowired
     private InvoiceService service;
 
+    // ==================== CREATE ====================
+
     @PostMapping
-    public Invoice save(@RequestBody Invoice invoice) {
-        return service.saveInvoice(invoice);
+    public ResponseEntity<Invoice> save(
+            @RequestBody Invoice invoice) {
+
+        Invoice savedInvoice =
+                service.saveInvoice(invoice);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(savedInvoice);
+
     }
+
+    // ==================== GET ALL ====================
 
     @GetMapping
-    public List<Invoice> getAll() {
-        return service.getAllInvoices();
+    public ResponseEntity<List<Invoice>> getAll() {
+
+        return ResponseEntity.ok(
+                service.getAllInvoices()
+        );
+
     }
+
+    // ==================== GET BY ID ====================
 
     @GetMapping("/{id}")
-    public Invoice getById(@PathVariable Long id) {
-        return service.getInvoiceById(id);
+    public ResponseEntity<Invoice> getById(
+            @PathVariable Long id) {
+
+        return ResponseEntity.ok(
+                service.getInvoiceById(id)
+        );
+
     }
+
+    // ==================== GET BY USER ====================
 
     @GetMapping("/user/{userId}")
-    public List<Invoice> getByUser(@PathVariable Integer userId) {
-        return service.getInvoicesByUser(userId);
+    public ResponseEntity<List<Invoice>> getByUser(
+            @PathVariable Integer userId) {
+
+        return ResponseEntity.ok(
+                service.getInvoicesByUser(userId)
+        );
+
     }
+
+    // ==================== UPDATE ====================
 
     @PutMapping("/{id}")
-    public Invoice update(@PathVariable Long id,
-                          @RequestBody Invoice invoice) {
-        return service.updateInvoice(id, invoice);
+    public ResponseEntity<Invoice> update(
+            @PathVariable Long id,
+            @RequestBody Invoice invoice) {
+
+        Invoice updatedInvoice =
+                service.updateInvoice(id, invoice);
+
+        return ResponseEntity.ok(updatedInvoice);
+
     }
 
+    // ==================== DELETE ====================
+
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(
+            @PathVariable Long id) {
 
         service.deleteInvoice(id);
 
-        return "Invoice Deleted Successfully";
+        return ResponseEntity.noContent().build();
+
     }
 
 }

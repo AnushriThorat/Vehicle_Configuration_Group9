@@ -1,6 +1,6 @@
 package com.vehiclecfg.repository;
 
-import java.util.Optional; 
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,6 +11,8 @@ import com.vehiclecfg.entities.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findByUsername(String username);
+
+    Optional<User> findByCompanyEmail(String companyEmail);
 
     boolean existsByUsername(String username);
 

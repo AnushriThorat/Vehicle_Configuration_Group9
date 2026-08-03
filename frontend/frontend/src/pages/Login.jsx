@@ -132,7 +132,7 @@ export default function Login({ onLoginSuccess }) {
           </div>
 
           <h1 className="auth-title">
-            Log in to AutoDeal
+            Log in to 9 Wheels
           </h1>
 
           <p className="auth-subtitle">

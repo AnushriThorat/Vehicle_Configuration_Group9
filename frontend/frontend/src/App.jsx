@@ -10,6 +10,8 @@ import VehicleDetails from "./pages/VehicleDetails";
 import Configure from "./pages/configure";
 import Invoice from "./pages/invoice";
 import OAuthSuccess from "./pages/OAuthSuccess";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
 
 export default function App() {
 
@@ -28,6 +30,25 @@ export default function App() {
             />
           }
         />
+ {/* About Us */}
+        <Route
+    path="/about"
+    element={
+        <About
+            isAuthenticated={isAuthenticated}
+        />
+    }
+/>
+
+{/* Contact Us */}
+<Route
+    path="/contact"
+    element={
+        <Contact
+            isAuthenticated={isAuthenticated}
+        />
+    }
+/>
 
         {/* Login */}
         <Route

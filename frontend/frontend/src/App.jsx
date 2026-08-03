@@ -9,6 +9,7 @@ import VehicleConfiguration from "./pages/VehicleConfiguration";
 import VehicleDetails from "./pages/VehicleDetails";
 import Configure from "./pages/configure";
 import Invoice from "./pages/invoice";
+import OAuthSuccess from "./pages/OAuthSuccess";
 
 export default function App() {
 
@@ -44,6 +45,12 @@ export default function App() {
             )
           }
         />
+
+        {/* SSO OAuth2*/}
+        <Route
+  path="/oauth-success"
+  element={<OAuthSuccess />}
+/>
 
         {/* Registration */}
         <Route

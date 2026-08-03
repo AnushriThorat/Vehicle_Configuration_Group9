@@ -3,6 +3,8 @@ package com.vehiclecfg.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.vehiclecfg.entities.MfgMaster;
@@ -10,47 +12,90 @@ import com.vehiclecfg.services.MfgService;
 
 @RestController
 @RequestMapping("/manufacturers")
+@CrossOrigin(origins = {
+        "http://localhost:5173",
+        "http://localhost:3000"
+})
 public class MfgController {
 
     @Autowired
     private MfgService mfgService;
 
-    // Save Manufacturer
+    // ==================== CREATE ====================
+
     @PostMapping
-    public MfgMaster saveManufacturer(@RequestBody MfgMaster manufacturer) {
-        return mfgService.saveManufacturer(manufacturer);
+    public ResponseEntity<MfgMaster> saveManufacturer(
+            @RequestBody MfgMaster manufacturer) {
+
+        MfgMaster savedManufacturer =
+                mfgService.saveManufacturer(manufacturer);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(savedManufacturer);
+
     }
 
-    // Get All Manufacturers
+    // ==================== GET ALL ====================
+
     @GetMapping
-    public List<MfgMaster> getAllManufacturers() {
-        return mfgService.getAllManufacturers();
+    public ResponseEntity<List<MfgMaster>> getAllManufacturers() {
+
+        return ResponseEntity.ok(
+                mfgService.getAllManufacturers()
+        );
+
     }
 
-    // Get Manufacturer By Id
+    // ==================== GET BY ID ====================
+
     @GetMapping("/{id}")
-    public MfgMaster getManufacturerById(@PathVariable Integer id) {
-        return mfgService.getManufacturerById(id);
+    public ResponseEntity<MfgMaster> getManufacturerById(
+            @PathVariable Integer id) {
+
+        return ResponseEntity.ok(
+                mfgService.getManufacturerById(id)
+        );
+
     }
 
-    // Get Manufacturers By Segment
+    // ==================== GET BY SEGMENT ====================
+
     @GetMapping("/segment/{segmentId}")
-    public List<MfgMaster> getManufacturersBySegment(@PathVariable Integer segmentId) {
-        return mfgService.getManufacturersBySegment(segmentId);
+    public ResponseEntity<List<MfgMaster>> getManufacturersBySegment(
+            @PathVariable Integer segmentId) {
+
+        return ResponseEntity.ok(
+                mfgService.getManufacturersBySegment(segmentId)
+        );
+
     }
 
-    // Update Manufacturer
+    // ==================== UPDATE ====================
+
     @PutMapping("/{id}")
-    public MfgMaster updateManufacturer(@PathVariable Integer id,
-                                        @RequestBody MfgMaster manufacturer) {
+    public ResponseEntity<MfgMaster> updateManufacturer(
+            @PathVariable Integer id,
+            @RequestBody MfgMaster manufacturer) {
+
         manufacturer.setMfgId(id);
-        return mfgService.updateManufacturer(manufacturer);
+
+        MfgMaster updatedManufacturer =
+                mfgService.updateManufacturer(manufacturer);
+
+        return ResponseEntity.ok(updatedManufacturer);
+
     }
 
-    // Delete Manufacturer
+    // ==================== DELETE ====================
+
     @DeleteMapping("/{id}")
-    public String deleteManufacturer(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteManufacturer(
+            @PathVariable Integer id) {
+
         mfgService.deleteManufacturer(id);
-        return "Manufacturer Deleted Successfully";
+
+        return ResponseEntity.noContent().build();
+
     }
+
 }

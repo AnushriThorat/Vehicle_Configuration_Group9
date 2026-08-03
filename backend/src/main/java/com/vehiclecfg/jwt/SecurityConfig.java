@@ -28,9 +28,14 @@ public class SecurityConfig {
     @Autowired
     private jwtFilter jwtFilter;
 
+    @Autowired
+    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
+
     }
 
     @Bean
@@ -42,68 +47,96 @@ public class SecurityConfig {
         provider.setPasswordEncoder(passwordEncoder());
 
         return provider;
+
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration config) throws Exception {
+
         return config.getAuthenticationManager();
+
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http) throws Exception {
 
         http
 
-                .csrf(csrf -> csrf.disable())
+            .csrf(csrf -> csrf.disable())
 
-                .cors(cors -> cors.configurationSource(request -> {
+            .cors(cors -> cors.configurationSource(request -> {
 
-                    CorsConfiguration configuration = new CorsConfiguration();
+                CorsConfiguration configuration =
+                        new CorsConfiguration();
 
-                    configuration.setAllowedOrigins(List.of(
-                            "http://localhost:5173",
-                            "http://localhost:3000",
-                            "http://www.vconfig.site",
-                            "http://165.232.182.201:5000"
-                    ));
+                configuration.setAllowedOrigins(List.of(
+                        "http://localhost:5173",
+                        "http://localhost:3000",
+                        "http://www.vconfig.site",
+                        "http://165.232.182.201:5000"
+                ));
 
-                    configuration.setAllowedMethods(List.of(
-                            "GET",
-                            "POST",
-                            "PUT",
-                            "DELETE",
-                            "OPTIONS"
-                    ));
+                configuration.setAllowedMethods(List.of(
+                        "GET",
+                        "POST",
+                        "PUT",
+                        "DELETE",
+                        "OPTIONS"
+                ));
 
-                    configuration.setAllowedHeaders(List.of("*"));
-                    configuration.setAllowCredentials(true);
+                configuration.setAllowedHeaders(List.of("*"));
 
-                    return configuration;
+                configuration.setAllowCredentials(true);
 
-                }))
+                return configuration;
 
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            }))
 
-                .authenticationProvider(authenticationProvider())
+            // OAuth2 requires a session during login
+            .sessionManagement(session ->
+                    session.sessionCreationPolicy(
+                            SessionCreationPolicy.IF_REQUIRED
+                    ))
 
-                .authorizeHttpRequests(auth -> auth
+            .authenticationProvider(authenticationProvider())
 
-                        // Public APIs
-                        .requestMatchers(
-                                "/api/auth/login",
-                                "/api/auth/register",
-                                "/about"
-                        ).permitAll()
+            .authorizeHttpRequests(auth -> auth
 
-                        // All remaining APIs require JWT
-                        .anyRequest().authenticated()
-                )
+                    .requestMatchers(
 
-                .addFilterBefore(jwtFilter,
-                        UsernamePasswordAuthenticationFilter.class);
+                            "/api/auth/login",
+                            "/api/auth/register",
+
+                            "/oauth2/**",
+
+                            "/login/**",
+
+                            "/about"
+
+                    ).permitAll()
+
+                    .anyRequest().authenticated()
+
+            )
+
+            .oauth2Login(oauth -> oauth
+
+                    .successHandler(oAuth2LoginSuccessHandler)
+
+            )
+
+            .addFilterBefore(
+
+                    jwtFilter,
+
+                    UsernamePasswordAuthenticationFilter.class
+
+            );
 
         return http.build();
+
     }
 
 }

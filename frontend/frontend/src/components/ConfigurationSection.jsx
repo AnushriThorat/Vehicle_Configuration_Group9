@@ -81,9 +81,6 @@ const ConfigurationSection = ({
                                     <strong>
 
                                         {component.componentName}
-
-                                        
-
                                     </strong>
 
                                     <p>

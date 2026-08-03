@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { sendInvoiceMail } from "../services/mailService";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -144,9 +145,9 @@ const Invoice = () => {
 
     const savedInvoice = await saveInvoice(invoiceBody);
 
-    console.log("Saved Invoice :", savedInvoice);
-
     setInvoice(savedInvoice);
+
+    await handleDownloadPDF(true);
 
     const detailPromises = Object.values(selectedComponents || {}).map(
       (component) => {
@@ -207,19 +208,16 @@ const Invoice = () => {
 
 };
 
-const handleDownloadPDF = async () => {
+const handleDownloadPDF = async (sendMail = false) => {
 
   if (!invoiceRef.current) return;
 
   const canvas = await html2canvas(invoiceRef.current, {
-
-    scale: 2,
-
+    scale: 1.3,
     useCORS: true
-
   });
 
-  const imgData = canvas.toDataURL("image/png");
+  const imgData = canvas.toDataURL("image/jpeg", 0.8);
 
   const pdf = new jsPDF("p", "mm", "a4");
 
@@ -229,22 +227,29 @@ const handleDownloadPDF = async () => {
     (canvas.height * pdfWidth) / canvas.width;
 
   pdf.addImage(
-
     imgData,
-
-    "PNG",
-
+    "JPEG",
     0,
-
     0,
-
     pdfWidth,
-
     pdfHeight
-
   );
 
-  pdf.save(`${invoiceNumber}.pdf`);
+  if (!sendMail) {
+
+    pdf.save(`${invoiceNumber}.pdf`);
+
+    return;
+
+  }
+
+  const pdfBlob = pdf.output("blob");
+
+  await sendInvoiceMail(
+    user.companyEmail,
+    invoiceNumber,
+    pdfBlob
+  );
 
 };
   return (
@@ -281,9 +286,7 @@ const handleDownloadPDF = async () => {
               <div className="company-details">
 
                 <h2>
-
                   9 Wheels Leasing Services Pvt. Ltd.
-
                 </h2>
 
                 <p>
@@ -685,6 +688,8 @@ const handleDownloadPDF = async () => {
   </div>
    </div>
 
+   </div>
+
           {/* ================= BUTTONS ================= */}
 
           <div className="invoice-buttons">
@@ -702,10 +707,10 @@ const handleDownloadPDF = async () => {
             </button>
 
              <button
-    className="download-btn"
-    onClick={handleDownloadPDF}
+  className="download-btn"
+  onClick={() => handleDownloadPDF(false)}
 >
-    Download PDF
+  Download PDF
 </button>
 
            <button
@@ -718,11 +723,7 @@ const handleDownloadPDF = async () => {
 
           </div>
 
-        </div>
-
          </div>
-
-
       </main>
 
       <Footer />

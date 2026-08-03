@@ -18,4 +18,6 @@ public interface UserService {
     void deleteUser(Integer id);
 
     User getByUsername(String username);
+
+	boolean validateUser(String username, String password);
 }

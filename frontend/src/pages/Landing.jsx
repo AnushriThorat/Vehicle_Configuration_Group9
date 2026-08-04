@@ -57,21 +57,21 @@ export default function Landing({ isAuthenticated }) {
 
                         <h1 className="hero-title">
 
-                            Enterprise-Ready
+    {t("Enterprise Ready")}
 
-                            <br />
+    <br />
 
-                            <span>
+    <span>
 
-                                Vehicle Configuration
+        {t("Vehicle Configuration")}
 
-                            </span>
+    </span>
 
-                            <br />
+    <br />
 
-                            Platform
+    {t("Platform")}
 
-                        </h1>
+</h1>
                         <div className="hero-buttons">
 
                             <button

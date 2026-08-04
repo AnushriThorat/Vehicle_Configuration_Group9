@@ -1,10 +1,10 @@
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-export const getManufacturersBySegment = async (segmentId) => {
+export const getModelsByManufacturer = async (manufacturerId) => {
     const token = sessionStorage.getItem("token");
 
     const response = await fetch(
-        `${BASE_URL}/manufacturers/segment/${segmentId}`,
+        `${BASE_URL}/models/manufacturer/${manufacturerId}`,
         {
             method: "GET",
             headers: {
@@ -15,7 +15,7 @@ export const getManufacturersBySegment = async (segmentId) => {
     );
 
     if (!response.ok) {
-        throw new Error("Failed to fetch manufacturers");
+        throw new Error("Failed to fetch models");
     }
 
     return await response.json();

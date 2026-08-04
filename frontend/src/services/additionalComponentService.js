@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/api/additional-components";
+const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/additional-components`;
 
 export async function getAdditionalComponents(modelId) {
 

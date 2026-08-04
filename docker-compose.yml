@@ -1,0 +1,123 @@
+version: "3.9"
+
+services:
+
+  mysql:
+
+    image: mysql:8.0
+
+    container_name: vehicle-mysql
+
+    restart: always
+
+    environment:
+
+      MYSQL_ROOT_PASSWORD: root
+
+      MYSQL_DATABASE: VehicleCFG_Group9
+
+    ports:
+
+      - "3307:3306"
+
+    volumes:
+
+      - mysql-data:/var/lib/mysql
+
+    networks:
+
+      - vehicle-network
+
+  backend:
+
+    build:
+
+      context: ./backend
+
+    container_name: vehicle-backend
+
+    restart: always
+
+    depends_on:
+
+      - mysql
+
+      - mail-service
+
+    ports:
+
+      - "8080:8080"
+
+    environment:
+
+      SPRING_PROFILES_ACTIVE: docker
+
+      DB_HOST: mysql
+
+      DB_PORT: 3306
+
+      DB_NAME: VehicleCFG_Group9
+
+      DB_USERNAME: root
+
+      DB_PASSWORD: root
+
+      MAIL_SERVICE_URL: http://mail-service:8081
+
+    networks:
+
+      - vehicle-network
+
+  mail-service:
+
+    build:
+
+      context: ./vehicle-mail-service
+
+    container_name: vehicle-mail-service
+
+    restart: always
+
+    ports:
+
+      - "8081:8081"
+
+    environment:
+
+      MAIL_USERNAME: yourgmail@gmail.com
+
+      MAIL_PASSWORD: your_app_password
+
+    networks:
+
+      - vehicle-network
+
+  frontend:
+
+    build:
+
+      context: ./frontend
+
+    container_name: vehicle-frontend
+
+    restart: always
+
+    depends_on:
+
+      - backend
+
+    ports:
+
+      - "5173:80"
+
+    networks:
+
+      - vehicle-network
+
+volumes:
+
+  mysql-data:
+
+networks:
+
+  vehicle-network:

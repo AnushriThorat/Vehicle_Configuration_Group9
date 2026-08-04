@@ -11,17 +11,17 @@ public class AdditionalComponent {
     @Column(name = "alt_id")
     private Integer altId;
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="model_id",nullable=false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "model_id", nullable = false)
     private Model model;
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="comp_id",nullable=false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comp_id", nullable = false)
     private Component component;
-    
-    
-    @Column(name = "alt_comp_id")
-    private Integer altCompId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "alt_comp_id")
+    private Component alternateComponent;
 
     @Column(name = "delta_price")
     private Double deltaPrice;
@@ -37,37 +37,35 @@ public class AdditionalComponent {
         this.altId = altId;
     }
 
-	public Model getModel() {
-		return model;
-	}
+    public Model getModel() {
+        return model;
+    }
 
-	public void setModel(Model model) {
-		this.model = model;
-	}
+    public void setModel(Model model) {
+        this.model = model;
+    }
 
-	public Component getComponent() {
-		return component;
-	}
+    public Component getComponent() {
+        return component;
+    }
 
-	public void setComponent(Component component) {
-		this.component = component;
-	}
+    public void setComponent(Component component) {
+        this.component = component;
+    }
 
-	public Integer getAltCompId() {
-		return altCompId;
-	}
+    public Component getAlternateComponent() {
+        return alternateComponent;
+    }
 
-	public void setAltCompId(Integer altCompId) {
-		this.altCompId = altCompId;
-	}
+    public void setAlternateComponent(Component alternateComponent) {
+        this.alternateComponent = alternateComponent;
+    }
 
-	public Double getDeltaPrice() {
-		return deltaPrice;
-	}
+    public Double getDeltaPrice() {
+        return deltaPrice;
+    }
 
-	public void setDeltaPrice(Double deltaPrice) {
-		this.deltaPrice = deltaPrice;
-	}
-
-   
+    public void setDeltaPrice(Double deltaPrice) {
+        this.deltaPrice = deltaPrice;
+    }
 }

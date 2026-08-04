@@ -11,5 +11,6 @@ public interface SegmentService {
 	List<Segment> GetAll();
 	Segment AddSegment(Segment s);
 	Segment UpdateSegment(int id, Segment update);
+	Segment getById(int id);
 	String DeleteSegment(int id);
 }

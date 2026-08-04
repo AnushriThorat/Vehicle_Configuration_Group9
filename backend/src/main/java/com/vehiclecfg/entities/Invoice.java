@@ -1,7 +1,8 @@
 package com.vehiclecfg.entities;
 
-import jakarta.persistence.*;
 import java.util.Date;
+
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "invoice")
@@ -9,68 +10,87 @@ public class Invoice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long inv_id;
+    @Column(name = "inv_id")
+    private Long invId;
 
-    private Date inv_date;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "inv_date")
+    private Date invDate;
 
-  @ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="model_id",nullable=false)
-	private Model model;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "model_id", nullable = false)
+    private Model model;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id", nullable = false)
+    private User user;
 
-  @OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id",nullable=false)
-	private User user;
-   
+    @Column(name = "total_amt")
+    private Double totalAmt;
 
-    private Double totalAmt;      // Vehicle amount
-     
+    @Column(name = "tax")
     private Double tax;
+
+    @Column(name = "net_amt")
     private Double netAmt;
-	public Long getInv_id() {
-		return inv_id;
-	}
-	public void setInv_id(Long inv_id) {
-		this.inv_id = inv_id;
-	}
-	public Date getInv_date() {
-		return inv_date;
-	}
-	public void setInv_date(Date inv_date) {
-		this.inv_date = inv_date;
-	}
-	public Model getModel() {
-		return model;
-	}
-	public void setModel(Model model) {
-		this.model = model;
-	}
-	public User getUser_id() {
-		return user;
-	}
-	public void setUser_id(User user_id) {
-		this.user = user_id;
-	}
-	public Double getTotalAmt() {
-		return totalAmt;
-	}
-	public void setTotalAmt(Double totalAmt) {
-		this.totalAmt = totalAmt;
-	}
-	public Double getTax() {
-		return tax;
-	}
-	public void setTax(Double tax) {
-		this.tax = tax;
-	}
-	public Double getNetAmt() {
-		return netAmt;
-	}
-	public void setNetAmt(Double netAmt) {
-		this.netAmt = netAmt;
-	}
 
- 
+    public Invoice() {
+    }
+
+    public Long getInvId() {
+        return invId;
+    }
+
+    public void setInvId(Long invId) {
+        this.invId = invId;
+    }
+
+    public Date getInvDate() {
+        return invDate;
+    }
+
+    public void setInvDate(Date invDate) {
+        this.invDate = invDate;
+    }
+
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Double getTotalAmt() {
+        return totalAmt;
+    }
+
+    public void setTotalAmt(Double totalAmt) {
+        this.totalAmt = totalAmt;
+    }
+
+    public Double getTax() {
+        return tax;
+    }
+
+    public void setTax(Double tax) {
+        this.tax = tax;
+    }
+
+    public Double getNetAmt() {
+        return netAmt;
+    }
+
+    public void setNetAmt(Double netAmt) {
+        this.netAmt = netAmt;
+    }
+
 }
-    
-

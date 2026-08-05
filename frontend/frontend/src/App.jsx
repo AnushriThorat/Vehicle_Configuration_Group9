@@ -7,7 +7,7 @@ import Login from "./pages/Login";
 import Registration from "./pages/Registration";
 import VehicleConfiguration from "./pages/VehicleConfiguration";
 import VehicleDetails from "./pages/VehicleDetails";
-import Configure from "./pages/configure";
+import Configure from "./pages/Configure";
 import Invoice from "./pages/invoice";
 import OAuthSuccess from "./pages/OAuthSuccess";
 import Contact from "./pages/Contact";
@@ -20,7 +20,6 @@ export default function App() {
   return (
     <>
       <Routes>
-
         {/* Landing */}
         <Route
           path="/"

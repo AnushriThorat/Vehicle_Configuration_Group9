@@ -8,6 +8,7 @@ import ConfigurationSection from "../components/ConfigurationSection";
 import PriceSummary from "../components/PriceSummary";
 
 import { getAdditionalComponents } from "../services/additionalComponentService";
+import { getConfigurableVehicleDetails } from "../services/vehicleDetailService";
 
 import "./Configure.css";
 
@@ -18,6 +19,8 @@ const Configure = () => {
     const location = useLocation();
 
     const { vehicle, quantity, minimumQuantity } = location.state;
+
+    const [configurableVehicle, setConfigurableVehicle] = useState(null);
 
     const [additionalComponents, setAdditionalComponents] = useState([]);
 
@@ -31,17 +34,25 @@ const Configure = () => {
 
     useEffect(() => {
 
-        loadAdditionalComponents();
+        loadConfigurationData();
 
     }, []);
 
-    const loadAdditionalComponents = async () => {
+    const loadConfigurationData = async () => {
 
         try {
 
-            const data = await getAdditionalComponents(vehicle.modelId);
+            const [vehicleData, componentData] = await Promise.all([
 
-            setAdditionalComponents(data);
+                getConfigurableVehicleDetails(vehicle.modelId),
+
+                getAdditionalComponents(vehicle.modelId)
+
+            ]);
+
+            setConfigurableVehicle(vehicleData);
+
+            setAdditionalComponents(componentData);
 
         }
 
@@ -98,16 +109,16 @@ const Configure = () => {
     };
 
     const coreComponents =
-        getCategoryComponents(vehicle.coreComponents);
+        getCategoryComponents(configurableVehicle?.coreComponents || []);
 
     const standardComponents =
-        getCategoryComponents(vehicle.standardComponents);
+        getCategoryComponents(configurableVehicle?.standardComponents || []);
 
     const interiorComponents =
-        getCategoryComponents(vehicle.interiorComponents);
+        getCategoryComponents(configurableVehicle?.interiorComponents || []);
 
     const exteriorComponents =
-        getCategoryComponents(vehicle.exteriorComponents);
+        getCategoryComponents(configurableVehicle?.exteriorComponents || []);
 
     const additionalPrice =
         Object.values(selectedComponents).reduce(
@@ -153,7 +164,8 @@ const Configure = () => {
 
     if (error)
         return <h2 className="error-message">{error}</h2>;
-    return (
+
+        return (
 
         <div className="page-shell">
 
@@ -243,7 +255,8 @@ const Configure = () => {
                         </div>
 
                         <div className="component-content">
-                                                        {activeTab === "I" && (
+
+                            {activeTab === "I" && (
 
                                 <ConfigurationSection
                                     title="Interior Components"

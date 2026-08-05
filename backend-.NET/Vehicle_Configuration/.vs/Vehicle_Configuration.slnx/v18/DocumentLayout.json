@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Final_Project\\Vehicle_Configuration_Group9\\backend-.NET\\Vehicle_Configuration\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1F276020-698E-4B3C-A5E7-6FC2B8296370}|Vehicle_Configuration\\Vehicle_Configuration.csproj|e:\\final_project\\vehicle_configuration_group9\\backend-.net\\vehicle_configuration\\vehicle_configuration\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F276020-698E-4B3C-A5E7-6FC2B8296370}|Vehicle_Configuration\\Vehicle_Configuration.csproj|solutionrelative:vehicle_configuration\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\Final_Project\\Vehicle_Configuration_Group9\\backend-.NET\\Vehicle_Configuration\\Vehicle_Configuration\\Program.cs",
+              "RelativeDocumentMoniker": "Vehicle_Configuration\\Program.cs",
+              "ToolTip": "E:\\Final_Project\\Vehicle_Configuration_Group9\\backend-.NET\\Vehicle_Configuration\\Vehicle_Configuration\\Program.cs",
+              "RelativeToolTip": "Vehicle_Configuration\\Program.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-05T14:09:09.279Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

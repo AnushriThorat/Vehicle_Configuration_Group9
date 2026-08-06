@@ -1,0 +1,6 @@
+@Vehiclecfg_group9_HostAddress = http://localhost:5097
+
+GET {{Vehiclecfg_group9_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

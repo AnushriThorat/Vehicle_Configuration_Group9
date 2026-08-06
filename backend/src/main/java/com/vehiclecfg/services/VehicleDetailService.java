@@ -20,4 +20,6 @@ public interface VehicleDetailService {
     List<VehicleDetail> getVehicleDetailsByModel(Integer modelId);
 
     VehicleDetailsResponseDto getVehicleDetailsResponse(Integer modelId);
+    
+    VehicleDetailsResponseDto getConfigurableVehicleDetails(Integer modelId);
 }

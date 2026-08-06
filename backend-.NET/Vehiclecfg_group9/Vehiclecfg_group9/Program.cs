@@ -18,11 +18,9 @@ namespace Vehiclecfg_group9
             builder.Services.AddDbContext<VehicleCfgContext>();
 
             builder.Services.AddScoped<SegmentService>();
-            builder.Services.AddScoped<VehicleDetailService>();
+
             builder.Services.AddScoped<IGenericRepository<SegmentMaster>,
                                        GenericRepository<SegmentMaster>>();
-            builder.Services.AddScoped<IGenericRepository<VehicleDetail>,
-                                       GenericRepository<VehicleDetail>>();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 

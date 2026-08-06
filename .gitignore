@@ -8,6 +8,10 @@ target/
 
 # IntelliJ
 .idea/
+*.iml
+
+# Logs
+*.log
 
 # Environment files
 .env

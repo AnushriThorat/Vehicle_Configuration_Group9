@@ -97,5 +97,18 @@ public class VehicleDetailController {
         return ResponseEntity.ok(response);
 
     }
+    
+ // ==================== GET CONFIGURABLE VEHICLE DETAILS ====================
+
+    @GetMapping("/model/{modelId}/configurable")
+    public ResponseEntity<VehicleDetailsResponseDto> getConfigurableVehicleDetails(
+            @PathVariable Integer modelId) {
+
+        VehicleDetailsResponseDto response =
+                service.getConfigurableVehicleDetails(modelId);
+
+        return ResponseEntity.ok(response);
+
+    }
 
 }

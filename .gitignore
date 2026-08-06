@@ -1,29 +1,22 @@
-# Maven
-target/
+# Java properties
+backend/src/main/resources/application.properties
+backend/src/main/resources/application-dev.properties
+backend/src/main/resources/application-prod.properties
+backend/src/main/resources/application-test.properties
+backend/src/main/resources/application-docker.properties
 
-# Eclipse / STS
-.classpath
-.project
-.settings/
-
-# IntelliJ
-.idea/
-*.iml
-
-# Logs
-*.log
-
-# Environment files
-.env
-
-*.properties
-# Local database configuration
-src/main/resources/application.properties
-src/main/resources/application-dev.properties
-
-# Keep other profiles
-!src/main/resources/application-test.properties
-!src/main/resources/application-prod.properties
-
-# Visual Studio
+# .NET
+**/bin/
+**/obj/
 .vs/
+*.user
+*.suo
+
+# ASP.NET
+**/appsettings.json
+**/appsettings.Development.json
+**/appsettings.Local.json
+
+# IDE
+.idea/
+.vscode/

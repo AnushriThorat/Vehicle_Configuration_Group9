@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
+using Vehiclecfg_group9.Models;
 
-namespace Vehiclecfg_group9.Models;
+namespace Vehiclecfg_group9.data;
 
 public partial class VehicleCfgContext : DbContext
 {

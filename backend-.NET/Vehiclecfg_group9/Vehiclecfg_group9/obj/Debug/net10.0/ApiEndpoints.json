@@ -1,0 +1,86 @@
+[
+  {
+    "ContainingType": "Vehiclecfg_group9.Controllers.SegmentController",
+    "Method": "DeleteSegment",
+    "RelativePath": "api/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vehiclecfg_group9.Controllers.SegmentController",
+    "Method": "GetAll",
+    "RelativePath": "api/getSegment",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vehiclecfg_group9.Controllers.SegmentController",
+    "Method": "SaveSegment",
+    "RelativePath": "api/saveSegment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "segment",
+        "Type": "Vehiclecfg_group9.Models.SegmentMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vehiclecfg_group9.Controllers.SegmentController",
+    "Method": "UpdateSegment",
+    "RelativePath": "api/update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "segment",
+        "Type": "Vehiclecfg_group9.Models.SegmentMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Vehiclecfg_group9.Controllers.WeatherForecastController",
+    "Method": "Get",
+    "RelativePath": "WeatherForecast",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Vehiclecfg_group9.WeatherForecast, Vehiclecfg_group9, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetWeatherForecast"
+  }
+]

@@ -1,6 +1,20 @@
 # Maven
 target/
 
+
+# Visual Studio
+.vs/
+
+# Build results
+bin/
+obj/
+
+# User files
+*.user
+*.suo
+
+
+
 # Eclipse / STS
 .classpath
 .project

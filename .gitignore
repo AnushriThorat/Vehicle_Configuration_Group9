@@ -10,9 +10,6 @@ target/
 .idea/
 *.iml
 
-# Logs
-*.log
-
 # Environment files
 .env
 

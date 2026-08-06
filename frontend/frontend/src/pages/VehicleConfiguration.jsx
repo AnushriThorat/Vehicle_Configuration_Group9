@@ -256,18 +256,18 @@ const VehicleConfiguration = () => {
           </div>
 
           <button
-            onClick={handleContinue}
-            disabled={
-              !selectedSegment ||
-              !selectedManufacturer ||
-              !selectedModel ||
-              !quantity ||
-              Number(quantity) < minimumQuantity
-            }
-          >
-            Continue
-          </button>
-
+  className="continue-btn"
+  onClick={handleContinue}
+  disabled={
+    !selectedSegment ||
+    !selectedManufacturer ||
+    !selectedModel ||
+    !quantity ||
+    Number(quantity) < minimumQuantity
+  }
+>
+  Continue →
+</button>
         </div>
 
       </div>

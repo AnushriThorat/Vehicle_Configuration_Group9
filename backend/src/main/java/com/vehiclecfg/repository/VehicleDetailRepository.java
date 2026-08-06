@@ -12,4 +12,5 @@ import com.vehiclecfg.entities.VehicleDetail;
 public interface VehicleDetailRepository extends JpaRepository<VehicleDetail, Integer> {
 
     List<VehicleDetail> findByModelModelId(Integer modelId);
+    List<VehicleDetail> findByModelModelIdAndConfigurableTrue(Integer modelId);
 }

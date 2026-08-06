@@ -1,144 +1,338 @@
-import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-import "./Contact.css";
+import ConfigurationSection from "../components/ConfigurationSection";
+import PriceSummary from "../components/PriceSummary";
 
-export default function Contact({ isAuthenticated }) {
+import { getAdditionalComponents } from "../services/additionalComponentService";
+import { getConfigurableVehicleDetails } from "../services/vehicleDetailService";
 
-  const { t } = useTranslation();
+import "./Configure.css";
 
-  return (
+const Configure = () => {
 
-    <div className="page-shell">
+    const navigate = useNavigate();
 
-      <Header isAuthenticated={isAuthenticated} />
+    const location = useLocation();
 
-      <main className="contact-page">
+    const { vehicle, quantity, minimumQuantity } = location.state;
 
-        <section className="contact-hero">
+    const [configurableVehicle, setConfigurableVehicle] = useState(null);
 
-          <h1>{t("contactTitle")}</h1>
+    const [additionalComponents, setAdditionalComponents] = useState([]);
 
-          <p>{t("contactSubtitle")}</p>
+    const [selectedComponents, setSelectedComponents] = useState({});
 
-        </section>
+    const [activeTab, setActiveTab] = useState("INTERIOR");
 
-        <div className="contact-container">
+    const [loading, setLoading] = useState(true);
 
-          <div className="contact-info">
+    const [error, setError] = useState("");
 
-            <div className="info-card">
+    useEffect(() => {
 
-              <h3>📍 {t("address")}</h3>
+        loadConfigurationData();
 
-              <p>
+    }, []);
 
-                9 Wheels Leasing Services
+    const loadConfigurationData = async () => {
 
-                <br />
+        try {
 
-                Pune, Maharashtra
+            const [vehicleData, componentData] = await Promise.all([
 
-                <br />
+                getConfigurableVehicleDetails(vehicle.modelId),
 
-                India
+                getAdditionalComponents(vehicle.modelId)
 
-              </p>
+            ]);
 
-            </div>
+            setConfigurableVehicle(vehicleData);
 
-            <div className="info-card">
+            setAdditionalComponents(componentData);
 
-              <h3>📞 {t("phone")}</h3>
+        }
 
-              <p>
+        catch (err) {
 
-                +91 9876543210
+            console.error(err);
 
-              </p>
+            setError("Unable to load configurable components.");
 
-            </div>
+        }
 
-            <div className="info-card">
+        finally {
 
-              <h3>✉ {t("email")}</h3>
+            setLoading(false);
 
-              <p>
+        }
 
-                support@9wheels.com
+    };
 
-              </p>
+    const handleSelection = (component) => {
 
-            </div>
+        setSelectedComponents(previous => ({
 
-            <div className="info-card">
+            ...previous,
 
-              <h3>🕒 {t("businessHours")}</h3>
+            [component.compId]: component
 
-              <p>
+        }));
 
-                Monday - Friday
+    };
 
-                <br />
+    const removeSelection = (compId) => {
 
-                9:00 AM - 6:00 PM
+        const updated = { ...selectedComponents };
 
-              </p>
+        delete updated[compId];
 
-            </div>
+        setSelectedComponents(updated);
 
-          </div>
+    };
 
-          <div className="contact-form-card">
+    const getCategoryComponents = (categoryComponents) => {
 
-            <h2>
+        return additionalComponents.filter(additional =>
 
-              {t("sendMessage")}
+            categoryComponents.some(component =>
 
-            </h2>
+                component.compId === additional.compId
 
-            <form>
+            )
 
-              <input
-                type="text"
-                placeholder={t("yourName")}
-              />
+        );
 
-              <input
-                type="email"
-                placeholder={t("yourEmail")}
-              />
+    };
 
-              <input
-                type="text"
-                placeholder={t("subject")}
-              />
+    const coreComponents =
+        getCategoryComponents(configurableVehicle?.coreComponents || []);
 
-              <textarea
-                rows="6"
-                placeholder={t("message")}
-              />
+    const standardComponents =
+        getCategoryComponents(configurableVehicle?.standardComponents || []);
 
-              <button type="submit">
+    const interiorComponents =
+        getCategoryComponents(configurableVehicle?.interiorComponents || []);
 
-                {t("send")}
+    const exteriorComponents =
+        getCategoryComponents(configurableVehicle?.exteriorComponents || []);
 
-              </button>
+    const additionalPrice =
+        Object.values(selectedComponents).reduce(
 
-            </form>
+            (total, component) => total + component.deltaPrice,
 
-          </div>
+            0
+
+        );
+
+    const baseTotal =
+        Number(vehicle.basePrice) * Number(quantity);
+
+    const grandTotal =
+        baseTotal + (additionalPrice * Number(quantity));
+
+    const handleConfirm = () => {
+
+        navigate("/invoice", {
+
+            state: {
+
+                vehicle,
+
+                quantity,
+
+                minimumQuantity,
+
+                selectedComponents,
+
+                additionalPrice,
+
+                grandTotal
+
+            }
+
+        });
+
+    };
+
+    if (loading)
+        return <h2 className="loading-message">Loading...</h2>;
+
+    if (error)
+        return <h2 className="error-message">{error}</h2>;
+
+        return (
+
+        <div className="page-shell">
+
+            <Header isAuthenticated={true} />
+
+            <main className="configure-page">
+
+                <div className="configure-container">
+
+                    {/* LEFT PANEL */}
+
+                    <div className="left-panel">
+
+                        <div className="vehicle-image-card">
+
+                            <img
+                                src={`/${vehicle.imagePath}`}
+                                alt={vehicle.modelName}
+                            />
+
+                            <div className="vehicle-overlay"></div>
+
+                            <div className="vehicle-name">
+
+                                <h2>{vehicle.modelName}</h2>
+
+                                <p>
+
+                                    Build your perfect configuration
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div className="component-tabs">
+
+                            <button
+
+                                className={activeTab === "I" ? "active" : ""}
+
+                                onClick={() => setActiveTab("I")}
+
+                            >
+
+                                Interior
+
+                            </button>
+
+                            <button
+
+                                className={activeTab === "E" ? "active" : ""}
+
+                                onClick={() => setActiveTab("E")}
+
+                            >
+
+                                Exterior
+
+                            </button>
+
+                            <button
+
+                                className={activeTab === "S" ? "active" : ""}
+
+                                onClick={() => setActiveTab("S")}
+
+                            >
+
+                                Standard
+
+                            </button>
+
+                            <button
+
+                                className={activeTab === "C" ? "active" : ""}
+
+                                onClick={() => setActiveTab("C")}
+
+                            >
+
+                                Core
+
+                            </button>
+
+                        </div>
+
+                        <div className="component-content">
+
+                            {activeTab === "I" && (
+
+                                <ConfigurationSection
+                                    title="Interior Components"
+                                    components={interiorComponents}
+                                    selectedComponents={selectedComponents}
+                                    handleSelection={handleSelection}
+                                    removeSelection={removeSelection}
+                                />
+
+                            )}
+
+                            {activeTab === "E" && (
+
+                                <ConfigurationSection
+                                    title="Exterior Components"
+                                    components={exteriorComponents}
+                                    selectedComponents={selectedComponents}
+                                    handleSelection={handleSelection}
+                                    removeSelection={removeSelection}
+                                />
+
+                            )}
+
+                            {activeTab === "S" && (
+
+                                <ConfigurationSection
+                                    title="Standard Components"
+                                    components={standardComponents}
+                                    selectedComponents={selectedComponents}
+                                    handleSelection={handleSelection}
+                                    removeSelection={removeSelection}
+                                />
+
+                            )}
+
+                            {activeTab === "C" && (
+
+                                <ConfigurationSection
+                                    title="Core Components"
+                                    components={coreComponents}
+                                    selectedComponents={selectedComponents}
+                                    handleSelection={handleSelection}
+                                    removeSelection={removeSelection}
+                                />
+
+                            )}
+
+                        </div>
+
+                    </div>
+
+                    {/* RIGHT PANEL */}
+
+                    <div className="right-panel">
+
+                        <PriceSummary
+                            selectedComponents={selectedComponents}
+                            baseTotal={baseTotal}
+                            additionalPrice={additionalPrice}
+                            quantity={quantity}
+                            grandTotal={grandTotal}
+                            onConfirm={handleConfirm}
+                        />
+
+                    </div>
+
+                </div>
+
+            </main>
+
+            <Footer />
 
         </div>
 
-      </main>
+    );
 
-      <Footer />
+};
 
-    </div>
-
-  );
-
-}
+export default Configure;

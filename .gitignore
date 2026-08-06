@@ -12,3 +12,18 @@ target/
 
 # Logs
 *.log
+
+# Environment files
+.env
+
+*.properties
+# Local database configuration
+src/main/resources/application.properties
+src/main/resources/application-dev.properties
+
+# Keep other profiles
+!src/main/resources/application-test.properties
+!src/main/resources/application-prod.properties
+
+# Visual Studio
+.vs/

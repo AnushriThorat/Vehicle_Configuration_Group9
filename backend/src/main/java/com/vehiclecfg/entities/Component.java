@@ -1,6 +1,7 @@
 package com.vehiclecfg.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "component_master")
@@ -11,14 +12,9 @@ public class Component {
     @Column(name = "comp_id")
     private Integer compId;
 
-    @Column(name = "comp_name")
+    @NotBlank(message = "Component Name is required")
+    @Column(name = "comp_name", nullable = false, unique = true)
     private String compName;
-
-    @Column(name = "comp_type")
-    private String compType;
-
-    public Component() {
-    }
 
     public Integer getCompId() {
         return compId;
@@ -34,13 +30,5 @@ public class Component {
 
     public void setCompName(String compName) {
         this.compName = compName;
-    }
-
-    public String getCompType() {
-        return compType;
-    }
-
-    public void setCompType(String compType) {
-        this.compType = compType;
     }
 }

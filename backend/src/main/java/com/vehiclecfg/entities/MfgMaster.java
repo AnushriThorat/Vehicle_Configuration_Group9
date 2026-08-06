@@ -1,5 +1,7 @@
 package com.vehiclecfg.entities;
+
 import jakarta.persistence.*;
+
 @Entity
 @Table(name = "mfg_master")
 public class MfgMaster {
@@ -7,40 +9,42 @@ public class MfgMaster {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mfg_id")
-    private Integer mfg_id;
+    private Integer mfgId;
 
     @Column(name = "mfg_name")
-    private String mfg_name;
+    private String mfgName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seg_id")
-    private  int seg_id;
+    private Segment segment;
 
-
-    public Integer getMfgId() {
-        return mfg_id;
+    // Default Constructor
+    public MfgMaster() {
     }
 
-    public void setMfgId(Integer mfg_id) {
-        this.mfg_id = mfg_id;
+    // Getters and Setters
+
+    public Integer getMfgId() {
+        return mfgId;
+    }
+
+    public void setMfgId(Integer mfgId) {
+        this.mfgId = mfgId;
     }
 
     public String getMfgName() {
-        return mfg_name;
+        return mfgName;
     }
 
-    public void setMfgName(String mfg_name) {
-        this.mfg_name = mfg_name;
+    public void setMfgName(String mfgName) {
+        this.mfgName = mfgName;
     }
 
-	public int getSeg_id() {
-		return seg_id;
-	}
+    public Segment getSegment() {
+        return segment;
+    }
 
-	public void setSeg_id(int seg_id) {
-		this.seg_id = seg_id;
-	}
-
-    
-	
+    public void setSegment(Segment segment) {
+        this.segment = segment;
+    }
 }

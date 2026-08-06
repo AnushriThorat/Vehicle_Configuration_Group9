@@ -1,0 +1,120 @@
+.page-shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #f5f7fb;
+}
+
+.configure-page {
+    flex: 1;
+    padding: 35px;
+}
+
+.configure-container {
+    display: grid;
+    grid-template-columns: 2fr 430px;
+    gap: 35px;
+    align-items: start;
+}
+
+.left-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.vehicle-image-card {
+    position: relative;
+    height: 520px;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 12px 35px rgba(0,0,0,.12);
+}
+
+.vehicle-image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.vehicle-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        transparent 45%,
+        rgba(0,0,0,.75)
+    );
+}
+
+.vehicle-name {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    color: white;
+}
+
+.vehicle-name h2 {
+    margin: 0;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.vehicle-name p {
+    margin-top: 8px;
+    opacity: .9;
+}
+
+.component-tabs {
+    margin-top: 28px;
+    display: flex;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #dbe3ea;
+}
+
+.component-tabs button {
+
+    flex: 1;
+
+    padding: 16px;
+
+    border: none;
+
+    background: white;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    transition: .25s;
+
+}
+
+.component-tabs button:hover {
+
+    background: #eef4ff;
+
+}
+
+.component-tabs button.active {
+
+    background: #2962ff;
+
+    color: white;
+
+}
+
+.component-content {
+
+    margin-top: 25px;
+
+}
+
+.right-panel {
+
+    position: sticky;
+
+    top: 110px;
+
+}

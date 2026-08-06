@@ -11,14 +11,17 @@ public class AdditionalComponent {
     @Column(name = "alt_id")
     private Integer altId;
 
-    @Column(name = "model_id")
-    private Integer modelId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "model_id", nullable = false)
+    private Model model;
 
-    @Column(name = "comp_id")
-    private Integer compId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comp_id", nullable = false)
+    private Component component;
 
-    @Column(name = "alt_comp_id")
-    private Integer altCompId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "alt_comp_id")
+    private Component alternateComponent;
 
     @Column(name = "delta_price")
     private Double deltaPrice;
@@ -34,28 +37,28 @@ public class AdditionalComponent {
         this.altId = altId;
     }
 
-    public Integer getModelId() {
-        return modelId;
+    public Model getModel() {
+        return model;
     }
 
-    public void setModelId(Integer modelId) {
-        this.modelId = modelId;
+    public void setModel(Model model) {
+        this.model = model;
     }
 
-    public Integer getCompId() {
-        return compId;
+    public Component getComponent() {
+        return component;
     }
 
-    public void setCompId(Integer compId) {
-        this.compId = compId;
+    public void setComponent(Component component) {
+        this.component = component;
     }
 
-    public Integer getAltCompId() {
-        return altCompId;
+    public Component getAlternateComponent() {
+        return alternateComponent;
     }
 
-    public void setAltCompId(Integer altCompId) {
-        this.altCompId = altCompId;
+    public void setAlternateComponent(Component alternateComponent) {
+        this.alternateComponent = alternateComponent;
     }
 
     public Double getDeltaPrice() {

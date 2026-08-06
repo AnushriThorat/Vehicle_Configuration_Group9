@@ -1,6 +1,7 @@
 package com.vehiclecfg.services;
 
-import java.util.List; 
+import java.util.List;
+import java.util.Optional;
 
 import com.vehiclecfg.entities.User;
 
@@ -17,4 +18,6 @@ public interface UserService {
     void deleteUser(Integer id);
 
     User getByUsername(String username);
+
+	boolean validateUser(String username, String password);
 }

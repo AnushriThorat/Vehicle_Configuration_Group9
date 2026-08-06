@@ -8,7 +8,6 @@ target/
 
 # IntelliJ
 .idea/
-*.iml
 
 # Environment files
 .env

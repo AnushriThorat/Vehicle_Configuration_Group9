@@ -1,4 +1,9 @@
 
+using Vehiclecfg_group9.data;
+using Vehiclecfg_group9.Models;
+using Vehiclecfg_group9.Repository;
+using Vehiclecfg_group9.Services;
+
 namespace Vehiclecfg_group9
 {
     public class Program
@@ -10,6 +15,16 @@ namespace Vehiclecfg_group9
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddDbContext<VehicleCfgContext>();
+
+            builder.Services.AddScoped<SegmentService>();
+            builder.Services.AddScoped<MfgService>();
+
+            builder.Services.AddScoped<IGenericRepository<SegmentMaster>,
+                                       GenericRepository<SegmentMaster>>();
+
+            builder.Services.AddScoped<IGenericRepository<MfgMaster>,
+                                       GenericRepository<MfgMaster>>();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 

@@ -105,3 +105,8 @@ C:\C_CAT1\Final_Project\Vehicle_Configuration_Group9\backend-.NET\Vehiclecfg_gro
 C:\C_CAT1\Final_Project\Vehicle_Configuration_Group9\backend-.NET\Vehiclecfg_group9\Vehiclecfg_group9\obj\Debug\net10.0\Vehiclecfg_group9.pdb
 C:\C_CAT1\Final_Project\Vehicle_Configuration_Group9\backend-.NET\Vehiclecfg_group9\Vehiclecfg_group9\obj\Debug\net10.0\Vehiclecfg_group9.genruntimeconfig.cache
 C:\C_CAT1\Final_Project\Vehicle_Configuration_Group9\backend-.NET\Vehiclecfg_group9\Vehiclecfg_group9\obj\Debug\net10.0\ref\Vehiclecfg_group9.dll
+C:\C_CAT1\Final_Project\Vehicle_Configuration_Group9\backend-.NET\Vehiclecfg_group9\Vehiclecfg_group9\bin\Debug\net10.0\AutoMapper.dll
+C:\C_CAT1\Final_Project\Vehicle_Configuration_Group9\backend-.NET\Vehiclecfg_group9\Vehiclecfg_group9\bin\Debug\net10.0\Microsoft.IdentityModel.Abstractions.dll
+C:\C_CAT1\Final_Project\Vehicle_Configuration_Group9\backend-.NET\Vehiclecfg_group9\Vehiclecfg_group9\bin\Debug\net10.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\C_CAT1\Final_Project\Vehicle_Configuration_Group9\backend-.NET\Vehiclecfg_group9\Vehiclecfg_group9\bin\Debug\net10.0\Microsoft.IdentityModel.Logging.dll
+C:\C_CAT1\Final_Project\Vehicle_Configuration_Group9\backend-.NET\Vehiclecfg_group9\Vehiclecfg_group9\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll

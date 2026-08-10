@@ -1,0 +1,10 @@
+﻿using DotNetBackend.DTOs;
+using DotNetBackend.Services.Generic;
+
+namespace DotNetBackend.Services.Interfaces
+{
+    public interface IMfgMasterService : IGenericService<MfgMasterDto>
+    {
+
+    }
+}

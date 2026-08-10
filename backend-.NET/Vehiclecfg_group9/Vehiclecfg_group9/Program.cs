@@ -1,4 +1,5 @@
 
+using System.Text.Json.Serialization;
 using Vehiclecfg_group9.data;
 using Vehiclecfg_group9.Models;
 using Vehiclecfg_group9.Repository;
@@ -18,9 +19,21 @@ namespace Vehiclecfg_group9
             builder.Services.AddDbContext<VehicleCfgContext>();
 
             builder.Services.AddScoped<SegmentService>();
+            builder.Services.AddScoped<MfgService>();
 
             builder.Services.AddScoped<IGenericRepository<SegmentMaster>,
                                        GenericRepository<SegmentMaster>>();
+
+            builder.Services.AddScoped<IGenericRepository<MfgMaster>,
+                                       GenericRepository<MfgMaster>>();
+            builder.Services.AddScoped<IInvoiceDetailRepository, InvoiceDetailRepository>();
+
+            builder.Services.AddScoped<InvoiceDetailService>();
+            builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 

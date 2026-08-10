@@ -3,6 +3,7 @@ package com.vehiclecfg.mail;
 import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -17,6 +18,9 @@ public class MailController {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Value("${mail.service.url}")
+    private String mailServiceUrl;
 
     @PostMapping("/send-invoice")
     public ResponseEntity<String> sendInvoice(
@@ -63,7 +67,7 @@ public class MailController {
 
             String response = restTemplate.postForObject(
 
-                    "http://localhost:8081/api/mail/send-invoice",
+                    mailServiceUrl + "/api/mail/send-invoice",
 
                     request,
 

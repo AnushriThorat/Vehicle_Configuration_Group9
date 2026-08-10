@@ -26,4 +26,9 @@ src/main/resources/application-dev.properties
 !src/main/resources/application-prod.properties
 
 # Visual Studio
-.vs/
+.vs/obj/ 
+bin/ 
+.vs/ 
+**/obj/ 
+**/bin/ 
+**/.vs/ 

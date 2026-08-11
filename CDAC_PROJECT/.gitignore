@@ -1,0 +1,24 @@
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Application configuration / secrets
+**/src/main/resources/application*.properties
+**/src/main/resources/application.properties
+
+# Java / Maven
+target/
+*.class
+
+# .NET
+bin/
+obj/
+
+# Node
+node_modules/
+
+# IDE
+.idea/
+.vscode/
+*.iml

@@ -1,0 +1,149 @@
+{
+  "home": "Home",
+  "registration": "Registration",
+  "about": "About Us",
+  "contact": "Contact Us",
+  "login": "Log In",
+  "logout": "Logout",
+  "welcome": "Welcome",
+
+  "language": "Language",
+
+  "pleaseLogin": "Please log in to configure a vehicle.",
+
+  "rentSmarter": "Rent Smarter",
+  "backedByFinance": "Backed by Finance",
+  "heroSubtitle": "Flexible car rentals, financed and managed for you.",
+
+  "heroDescription": "9 Wheels Leasing Services is a finance-backed vehicle rental platform. Register your company and configure vehicles from our fleet with flexible leasing plans designed for modern businesses.",
+
+  "getStarted": "Get Started",
+
+  "fleetManagers": "For Fleet Managers",
+
+  "configureVehicle": "Configure Vehicle",
+
+  "configureVehicleDesc": "Configure a vehicle by selecting its segment, manufacturer, model and additional components.",
+
+  "newHere": "New Here?",
+
+  "companyRegistration": "Company Registration",
+
+  "companyRegistrationDesc": "Register your company to access our leasing platform and start configuring vehicles.",
+
+  "aboutTitle": "About 9 Wheels Leasing Services",
+
+  "aboutSubtitle": "Driving smarter vehicle leasing with technology and innovation.",
+
+  "whoWeAre": "Who We Are",
+
+  "whoWeAreDesc": "9 Wheels Leasing Services provides an intelligent vehicle configuration and leasing platform for businesses. Our application enables companies to configure vehicles, manage invoices, authenticate securely and simplify the entire leasing process through a modern web application.",
+
+  "mission": "Our Mission",
+
+  "missionDesc": "To simplify vehicle leasing through technology, transparency and customer-focused solutions.",
+
+  "vision": "Our Vision",
+
+  "visionDesc": "To become India's most trusted digital vehicle leasing platform.",
+
+  "whyChooseUs": "Why Choose Us?",
+
+  "vehicleConfig": "Vehicle Configuration",
+
+  "secureLogin": "Secure Login",
+
+  "invoiceGeneration": "Invoice Generation",
+
+  "cloudReady": "Cloud Ready",
+
+  "emailSupport": "Email Support",
+
+  "multiLanguage": "Multi-Language Support",
+
+  "contactTitle": "Contact Us",
+
+  "contactSubtitle": "We'd love to hear from you. Get in touch with our team.",
+
+  "address": "Address",
+
+  "phone": "Phone",
+
+  "email": "Email",
+
+  "businessHours": "Business Hours",
+
+  "sendMessage": "Send us a Message",
+
+  "yourName": "Your Name",
+
+  "yourEmail": "Your Email",
+
+  "subject": "Subject",
+
+  "message": "Message",
+
+  "send": "Send Message",
+
+  "dashboard": "Vehicle Configuration Dashboard",
+
+  "vehicles": "Vehicles",
+
+  "companies": "Companies",
+
+  "quotations": "Quotations",
+
+  "orders": "Orders",
+
+  "emailService": "Email Service",
+
+  "languages": "Languages",
+
+  "security": "Security",
+
+  "registeredCompanies": "Registered Companies",
+
+  "configuredVehicles": "Configured Vehicles",
+
+  "generatedInvoices": "Invoices Generated",
+
+  "supportedLanguages": "Languages Supported",
+
+  "online": "Online",
+
+  "jwtOauth": "JWT + OAuth",
+
+  "loginWelcome": "Welcome Back",
+
+  "loginTitle": "Log in to 9 Wheels",
+
+  "loginSubtitle": "Enter your credentials to manage your dealership.",
+
+  "username": "Username",
+
+  "password": "Password",
+
+  "enterUsername": "Enter Username",
+
+  "loginPasswordPlaceholder": "••••••••",
+
+  "loggingIn": "Logging In...",
+
+  "loginSuccessful": "Login Successful",
+
+  "invalidCredentials": "Invalid Username or Password",
+
+  "jwtTokenNotReceived": "JWT token not received from server.",
+
+  "unableToConnect": "Unable to connect to server.",
+
+  "continueWithGoogle": "Continue with Google",
+
+  "or": "OR",
+
+  "noCompanyAccount": "Don't have a company account?",
+
+  "registerHere": "Register here"
+  
+  
+}

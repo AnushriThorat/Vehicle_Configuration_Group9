@@ -1,0 +1,152 @@
+services:
+
+  # =======================================================
+  # MYSQL
+  # =======================================================
+
+  mysql:
+  image: mysql:8.4
+  container_name: vehicle-mysql-dotnet
+  restart: unless-stopped
+
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: vehiclecfg_group9
+    MYSQL_USER: vconf_user
+    MYSQL_PASSWORD: vconf_password
+
+  ports:
+    - "3308:3306"
+
+  volumes:
+    - mysql_dotnet_data:/var/lib/mysql
+    - ./mysql-init:/docker-entrypoint-initdb.d:ro
+
+  networks:
+    - vehicle-dotnet-network
+
+
+  # =======================================================
+  # .NET BACKEND
+  # =======================================================
+
+  dotnet-backend:
+    build:
+      context: ./DotNetBackend
+      dockerfile: Dockerfile
+
+    container_name: vehicle-dotnet-backend
+
+    restart: unless-stopped
+
+    depends_on:
+      - mysql
+      - java-mail
+
+    environment:
+
+      # -----------------------------------------------
+      # ASP.NET Core
+      # -----------------------------------------------
+
+      ASPNETCORE_URLS: http://+:8080
+
+      # -----------------------------------------------
+      # MySQL
+      # -----------------------------------------------
+
+      ConnectionStrings__DefaultConnection: >-
+        server=mysql;
+        port=3306;
+        database=vehiclecfg_group9;
+        user=vconf_user;
+        password=vconf_password;
+
+      # -----------------------------------------------
+      # Java Mail Microservice
+      # -----------------------------------------------
+
+      MailService__BaseUrl: http://java-mail:8080
+
+    ports:
+      - "5081:8080"
+
+    networks:
+      - vehicle-dotnet-network
+
+
+  # =======================================================
+  # JAVA MAIL MICROSERVICE
+  # =======================================================
+
+  java-mail:
+    build:
+      context: ./JavaVehicleMailService
+      dockerfile: Dockerfile
+
+    container_name: vehicle-java-mail
+
+    restart: unless-stopped
+
+    environment:
+
+      SERVER_PORT: 8080
+
+      SPRING_MAIL_HOST: smtp.gmail.com
+
+      SPRING_MAIL_PORT: 587
+
+      SPRING_MAIL_USERNAME: ${MAIL_USERNAME}
+
+      SPRING_MAIL_PASSWORD: ${MAIL_PASSWORD}
+
+    ports:
+      - "8081:8080"
+
+    networks:
+      - vehicle-dotnet-network
+
+
+  # =======================================================
+  # .NET REACT FRONTEND
+  # =======================================================
+
+  dotnet-frontend:
+    build:
+      context: ./DotNet_Frontend
+      dockerfile: Dockerfile
+
+      args:
+        VITE_DOTNET_BACKEND_URL: http://localhost:5081
+
+    container_name: vehicle-dotnet-frontend
+
+    restart: unless-stopped
+
+    depends_on:
+      - dotnet-backend
+
+    ports:
+      - "5174:80"
+
+    networks:
+      - vehicle-dotnet-network
+
+
+# =========================================================
+# VOLUMES
+# =========================================================
+
+volumes:
+
+  mysql_dotnet_data:
+
+
+# =========================================================
+# NETWORK
+# =========================================================
+
+networks:
+
+  vehicle-dotnet-network:
+    driver: bridge

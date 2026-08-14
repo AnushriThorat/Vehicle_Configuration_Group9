@@ -1,0 +1,129 @@
+services:
+
+  # =======================================================
+  # MYSQL
+  # =======================================================
+
+  mysql:
+    image: mysql:8.4
+    container_name: vehicle-mysql-java
+    restart: unless-stopped
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: vehiclecfg_group9
+      MYSQL_USER: vconf_user
+      MYSQL_PASSWORD: vconf_password
+
+    ports:
+      - "3307:3306"
+
+    volumes:
+      - mysql_java_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d:ro
+
+    networks:
+      - vehicle-java-network
+
+
+  # =======================================================
+  # JAVA SPRING BOOT BACKEND
+  # =======================================================
+
+  java-backend:
+    build:
+      context: ./JavaBackend
+      dockerfile: Dockerfile
+
+    container_name: vehicle-java-backend
+    restart: unless-stopped
+
+    depends_on:
+      - mysql
+      - dotnet-mail
+
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/vehiclecfg_group9?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+      SPRING_DATASOURCE_USERNAME: vconf_user
+      SPRING_DATASOURCE_PASSWORD: vconf_password
+
+      MAIL_SERVICE_URL: "http://dotnet-mail:8080"
+
+      SERVER_PORT: 8080
+
+    ports:
+      - "8080:8080"
+
+    networks:
+      - vehicle-java-network
+
+
+  # =======================================================
+  # .NET MAIL MICROSERVICE
+  # =======================================================
+
+  dotnet-mail:
+    build:
+      context: ./DotNetVehicleMailService
+      dockerfile: Dockerfile
+
+    container_name: vehicle-dotnet-mail
+    restart: unless-stopped
+
+    environment:
+      ASPNETCORE_URLS: "http://+:8080"
+
+      MailSettings__Smtp: "smtp.gmail.com"
+      MailSettings__Port: "587"
+      MailSettings__Username: "${MAIL_USERNAME}"
+      MailSettings__Password: "${MAIL_PASSWORD}"
+
+    ports:
+      - "5256:8080"
+
+    networks:
+      - vehicle-java-network
+
+
+  # =======================================================
+  # JAVA REACT FRONTEND
+  # =======================================================
+
+  java-frontend:
+    build:
+      context: ./Java_Frontend
+      dockerfile: Dockerfile
+
+      args:
+        VITE_API_BASE_URL: "http://localhost:8080"
+
+    container_name: vehicle-java-frontend
+    restart: unless-stopped
+
+    depends_on:
+      - java-backend
+
+    ports:
+      - "5173:80"
+
+    networks:
+      - vehicle-java-network
+
+
+# =========================================================
+# VOLUMES
+# =========================================================
+
+volumes:
+
+  mysql_java_data:
+
+
+# =========================================================
+# NETWORK
+# =========================================================
+
+networks:
+
+  vehicle-java-network:
+    driver: bridge

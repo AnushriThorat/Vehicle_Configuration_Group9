@@ -1,43 +1,43 @@
 package com.vehiclecfg.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Segment_Master")
 public class Segment {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Seg_id")
-	private int segmentId;
-	
-	@Column(name = "Seg_name")
-	private String segmentName;
-	
-	@Column(name = "min_Qty")
-	private int minQty;
-	
-	public int getSegmentId() {
-		return segmentId;
-	}
-	public void setSegmentId(int segmentId) {
-		this.segmentId = segmentId;
-	}
-	public String getSegmentName() {
-		return segmentName;
-	}
-	public void setSegmentName(String segmentName) {
-		this.segmentName = segmentName;
-	}
-	public int getMinQty() {
-		return minQty;
-	}
-	public void setMinQty(int minQty) {
-		this.minQty = minQty;
-	}
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Seg_id")
+    private int segId;
+
+    @Column(name = "Seg_name")
+    private String segName;
+
+    @Column(name = "min_Qty")
+    private int minQty;
+
+    public int getSegId() {
+        return segId;
+    }
+
+    public void setSegId(int segId) {
+        this.segId = segId;
+    }
+
+    public String getSegName() {
+        return segName;
+    }
+
+    public void setSegName(String segName) {
+        this.segName = segName;
+    }
+
+    public int getMinQty() {
+        return minQty;
+    }
+
+    public void setMinQty(int minQty) {
+        this.minQty = minQty;
+    }
 }

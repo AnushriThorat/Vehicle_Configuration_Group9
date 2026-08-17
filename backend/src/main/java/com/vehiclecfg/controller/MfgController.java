@@ -3,46 +3,99 @@ package com.vehiclecfg.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.vehiclecfg.entities.MfgMaster;
 import com.vehiclecfg.services.MfgService;
 
 @RestController
 @RequestMapping("/manufacturers")
+@CrossOrigin(origins = {
+        "http://localhost:5173",
+        "http://localhost:3000"
+})
 public class MfgController {
-	@Autowired
-	private MfgService mfgService;
-	
-	@PostMapping
-	public MfgMaster saveManufacturer(@RequestBody MfgMaster manufacturer) {
-		return mfgService.saveManufacturer(manufacturer);
-	}
-	@GetMapping
-	public List<MfgMaster> getAllManufacturers(){
-		return mfgService.getAllManufacturers();
-	}
-	@GetMapping("/{id}")
-	public MfgMaster getMnufacturerById(@PathVariable Integer id) {
-		return mfgService.getManufacturerById(id);
-	}
-	@PutMapping("/{id}")
-		public MfgMaster updateManufacturer(@PathVariable Integer id,@RequestBody MfgMaster manufacturer) {
-			manufacturer.setMfgId(id);
-			return mfgService.updateManufacturer(manufacturer);
-		}
-	@DeleteMapping("/{id}")
-	public String deteleManufacturer(@PathVariable Integer id) {
-		mfgService.deleteManufacturer(id);
-		return "Manufacturer Deleted Successfully";
-		
-		}
+
+    @Autowired
+    private MfgService mfgService;
+
+    // ==================== CREATE ====================
+
+    @PostMapping
+    public ResponseEntity<MfgMaster> saveManufacturer(
+            @RequestBody MfgMaster manufacturer) {
+
+        MfgMaster savedManufacturer =
+                mfgService.saveManufacturer(manufacturer);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(savedManufacturer);
+
+    }
+
+    // ==================== GET ALL ====================
+
+    @GetMapping
+    public ResponseEntity<List<MfgMaster>> getAllManufacturers() {
+
+        return ResponseEntity.ok(
+                mfgService.getAllManufacturers()
+        );
+
+    }
+
+    // ==================== GET BY ID ====================
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MfgMaster> getManufacturerById(
+            @PathVariable Integer id) {
+
+        return ResponseEntity.ok(
+                mfgService.getManufacturerById(id)
+        );
+
+    }
+
+    // ==================== GET BY SEGMENT ====================
+
+    @GetMapping("/segment/{segmentId}")
+    public ResponseEntity<List<MfgMaster>> getManufacturersBySegment(
+            @PathVariable Integer segmentId) {
+
+        return ResponseEntity.ok(
+                mfgService.getManufacturersBySegment(segmentId)
+        );
+
+    }
+
+    // ==================== UPDATE ====================
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MfgMaster> updateManufacturer(
+            @PathVariable Integer id,
+            @RequestBody MfgMaster manufacturer) {
+
+        manufacturer.setMfgId(id);
+
+        MfgMaster updatedManufacturer =
+                mfgService.updateManufacturer(manufacturer);
+
+        return ResponseEntity.ok(updatedManufacturer);
+
+    }
+
+    // ==================== DELETE ====================
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteManufacturer(
+            @PathVariable Integer id) {
+
+        mfgService.deleteManufacturer(id);
+
+        return ResponseEntity.noContent().build();
+
+    }
 
 }

@@ -1,0 +1,155 @@
+.configuration-section {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+.configuration-section h3 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #1f3c88;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.configuration-item {
+    margin-bottom: 35px;
+}
+
+.configuration-item h4 {
+    margin-bottom: 18px;
+    color: #111827;
+    font-size: 22px;
+    font-weight: 700;
+    border-left: 5px solid #2962ff;
+    padding-left: 12px;
+}
+
+.selection-card {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 18px 22px;
+
+    margin-bottom: 14px;
+
+    border: 2px solid #dbe3ea;
+
+    border-radius: 14px;
+
+    cursor: pointer;
+
+    transition: .25s;
+
+    background: white;
+
+}
+
+.selection-card:hover {
+
+    border-color: #2962ff;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 20px rgba(41,98,255,.15);
+
+}
+
+.selection-card.active {
+
+    border-color: #2962ff;
+
+    background: #eef4ff;
+
+}
+
+.selection-card strong {
+
+    display: block;
+
+    font-size: 18px;
+
+    color: #111827;
+
+}
+
+.selection-card p {
+
+    margin-top: 6px;
+
+    color: #6b7280;
+
+    font-size: 14px;
+
+}
+
+.price-tag {
+
+    background: #dcfce7;
+
+    color: #15803d;
+
+    padding: 8px 16px;
+
+    border-radius: 30px;
+
+    font-weight: 700;
+
+    font-size: 15px;
+
+}
+
+.included {
+
+    background: #dbeafe;
+
+    color: #1d4ed8;
+
+    padding: 8px 16px;
+
+    border-radius: 30px;
+
+    font-weight: 700;
+
+    font-size: 15px;
+
+}
+
+.no-component {
+
+    text-align: center;
+
+    padding: 40px;
+
+    color: #9ca3af;
+
+    font-style: italic;
+
+    font-size: 16px;
+
+}
+
+@media(max-width:768px){
+
+    .selection-card{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:12px;
+
+    }
+
+    .configuration-item h4{
+
+        font-size:18px;
+
+    }
+
+}

@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.vehiclecfg.entities.Segment;
 
 public interface SegmentRepository extends JpaRepository<Segment,Integer>{
-	
+	Segment getById(int id);
 }

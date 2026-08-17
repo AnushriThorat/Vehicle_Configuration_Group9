@@ -1,14 +1,22 @@
-# Maven
-target/
+# Java properties
+backend/src/main/resources/application.properties
+backend/src/main/resources/application-dev.properties
+backend/src/main/resources/application-prod.properties
+backend/src/main/resources/application-test.properties
+backend/src/main/resources/application-docker.properties
 
-# Eclipse / STS
-.classpath
-.project
-.settings/
+# .NET
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
 
-# IntelliJ
+# ASP.NET
+**/appsettings.json
+**/appsettings.Development.json
+**/appsettings.Local.json
+
+# IDE
 .idea/
-*.iml
-
-# Logs
-*.log
+.vscode/
